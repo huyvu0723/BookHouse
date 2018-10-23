@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickToLogin(View view) {
-        Intent intent = new Intent(this, ReadPDFActivity.class);
+        Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
     }
 }

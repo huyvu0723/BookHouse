@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.DashboardActivity" />
-        <activity android:name=".Activity.ReadPDFActivity"></activity>
+        <activity android:name=".Activity.ReadPDFActivity" />
+        <activity android:name=".Activity.BookDetailActivity"></activity>
     </application>
 
 </manifest>

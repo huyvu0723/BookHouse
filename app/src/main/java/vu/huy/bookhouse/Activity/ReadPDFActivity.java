@@ -21,7 +21,7 @@ public class ReadPDFActivity extends AppCompatActivity implements OnPageChangeLi
         pagePDF = findViewById(R.id.page_pdf);
         pagePDF.bringToFront();
         PDFView pdfView = findViewById(R.id.pdfView);
-        pdfView.fromAsset("hon.pdf")
+        pdfView.fromAsset("pdf.pdf")
                 .enableAntialiasing(true)
                 .enableSwipe(true)
                 .swipeHorizontal(true)
