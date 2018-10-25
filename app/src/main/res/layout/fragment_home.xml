@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/vip"
             android:background="@color/colorPrimary"
+            android:onClick="clickToPayVIP"
             />
     </android.support.v7.widget.Toolbar>
     <Button

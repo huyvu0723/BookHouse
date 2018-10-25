@@ -112,4 +112,13 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BookDetailActivity.class);
         startActivity(intent);
     }
+
+    public void clickToPayVIP(View view) {
+        Intent intent = new Intent(this, PayVIPActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickToLogout(View view) {
+        this.finish();
+    }
 }
