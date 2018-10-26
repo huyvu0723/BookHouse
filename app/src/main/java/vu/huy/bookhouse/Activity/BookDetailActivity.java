@@ -52,16 +52,12 @@ public class BookDetailActivity extends AppCompatActivity {
 //        }
         if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(BookDetailActivity.this, "You have already granted this permission!",
-                    Toast.LENGTH_SHORT).show();
+            new DownloadFile().execute("https://sachvui.com/sachvui-686868666888/ebooks/2014/pdf/Sachvui.Com-ca-phe-cung-tony-tony-buoi-sang.pdf", "sachanhtin.pdf");
         } else {
             requestStoragePermission();
         }
 
-        if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            new DownloadFile().execute("https://sachvui.com/sachvui-686868666888/ebooks/2014/pdf/Sachvui.Com-ca-phe-cung-tony-tony-buoi-sang.pdf", "sachanhtin.pdf");
-        }
+
 
     }
 
@@ -115,7 +111,11 @@ public class BookDetailActivity extends AppCompatActivity {
 
             String fileUrl = strings[0];
 // -> https://letuscsolutions.files.wordpress.com/2015/07/five-point-someone-chetan-bhagat_ebook.pdf
-            String fileName = strings[1];
+            //change pdf name;
+            //default name theo link pdf
+//            String fileName = strings[1];
+            //tên mình thay đổi lại
+            String fileName = "Book_01.pdf";
 // ->five-point-someone-chetan-bhagat_ebook.pdf Environment.getExternalStorageDirectory().getAbsolutePath()
 
             File folder = new File(Environment.getExternalStorageDirectory(), "BOOKHOUSE PDF"

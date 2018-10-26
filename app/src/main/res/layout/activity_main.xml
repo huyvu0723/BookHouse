@@ -12,7 +12,6 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="277dp"
         android:layout_height="258dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +21,7 @@
         app:srcCompat="@drawable/bookhouse" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txtUsername"
         android:layout_marginTop="20dp"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
@@ -37,7 +36,7 @@
         tools:layout_editor_absoluteY="282dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/txtPassword"
         android:layout_marginTop="15dp"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
@@ -52,8 +51,19 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="338dp" />
 
+
+    <TextView
+        android:id="@+id/errLogin"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:textColor="@color/colorDanger"
+        android:textStyle="bold"
+        android:textSize="18dp" />
     <android.support.v7.widget.CardView
-        android:layout_marginTop="40dp"
+        android:id="@+id/formLoginButton"
+        android:layout_marginTop="10dp"
         android:layout_width="300dp"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/colorPrimary"
@@ -92,6 +102,7 @@
         tools:layout_editor_absoluteY="520dp"
         android:textColor="@color/colorPrimary"
         android:onClick="clickToRegister"/>
+
 
 
 </LinearLayout>

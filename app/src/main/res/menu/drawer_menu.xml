@@ -3,12 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:icon="@drawable/ic_home_grey_24dp"
         android:title="@string/nav_home" />
     <item
-        android:icon="@drawable/ic_local_library_grey_24dp"
         android:title="@string/nav_book" />
     <item
-        android:icon="@drawable/ic_person_grey_24dp"
         android:title="@string/nav_account" />
 </menu>

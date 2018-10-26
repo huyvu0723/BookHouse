@@ -24,7 +24,7 @@ public class ReadPDFActivity extends AppCompatActivity implements OnPageChangeLi
         pagePDF = findViewById(R.id.page_pdf);
         pagePDF.bringToFront();
         PDFView pdfView = findViewById(R.id.pdfView);
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/BOOKHOUSE PDF", "sachanhtin.pdf"
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/BOOKHOUSE PDF", "Book_01.pdf"
         );
 
         pdfView.fromFile(pdfFile)

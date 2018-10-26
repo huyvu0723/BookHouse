@@ -11,7 +11,6 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="175dp"
         android:layout_height="158dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +34,7 @@
             android:textColor="@color/colorPrimary"
             android:text="Name:"/>
         <EditText
-            android:id="@+id/txtName"
+            android:id="@+id/txtRegisterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -58,7 +57,7 @@
             android:textColor="@color/colorPrimary"
             android:text="Username:"/>
         <EditText
-            android:id="@+id/txtUsername"
+            android:id="@+id/txtRegisterUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -80,7 +79,7 @@
             android:textColor="@color/colorPrimary"
             android:text="Password:"/>
         <EditText
-            android:id="@+id/txtPassword"
+            android:id="@+id/txtRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -94,9 +93,18 @@
             tools:layout_editor_absoluteY="282dp" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/notiRegister"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:textColor="@color/colorDanger"
+        android:textStyle="bold"
+        android:textSize="18dp" />
 
     <android.support.v7.widget.CardView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_width="300dp"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/colorPrimary"
@@ -104,7 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_gravity="center"
-
+        android:onClick="clickToCreateAccount"
         tools:layout_editor_absoluteY="442dp">
 
         <RelativeLayout
@@ -124,7 +132,6 @@
     </android.support.v7.widget.CardView>
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -136,6 +143,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/colorPrimary"
         tools:layout_editor_absoluteY="520dp" />
+
+
 
 
 </LinearLayout>
