@@ -8,9 +8,10 @@
     tools:context=".Activity.DashboardActivity">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Book"
-        android:onClick="clickToOpenPDF"/>
+    <ListView
+        android:id="@+id/listBookCase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
 </LinearLayout>

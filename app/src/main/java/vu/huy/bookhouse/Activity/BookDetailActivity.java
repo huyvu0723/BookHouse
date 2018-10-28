@@ -33,6 +33,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import vu.huy.bookhouse.R;
+import vu.huy.bookhouse.model.Book;
+import vu.huy.bookhouse.model.DatabaseHelper;
 
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -43,6 +45,8 @@ public class BookDetailActivity extends AppCompatActivity {
     private int STORAGE_PERMISSION_CODE = 1;
 
     private ProgressDialog mProgressDialog;
+
+    DatabaseHelper bookCaseManager;
 
     public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
     @Override
@@ -60,9 +64,9 @@ public class BookDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String IdBook = intent.getStringExtra("IdBook");
         String id = "01";
-        String name = "success";
-        String author = "Tín mặp";
-        String description = "Rất mặp";
+        String name = "Book 01";
+        String author = "Tin Fat";
+        String description = "Really really fat";
         int view = 1000;
 
         if(IdBook.equals(id)){
@@ -71,6 +75,10 @@ public class BookDetailActivity extends AppCompatActivity {
             descriptionBook.setText(description);
             viewBook.setText(view + "");
         }
+
+
+        //SQLite save
+        bookCaseManager = new DatabaseHelper(this);
     }
 
     public void clickToGetPDF(View view) {
@@ -206,8 +214,19 @@ public class BookDetailActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            addToDatabaseHelper(fileName);
             return null;
+        }
+        protected void addToDatabaseHelper(String nameLink){
+            Book newBook = new Book(
+                    01,
+                    nameBook.getText().toString(),
+                    authorBook.getText().toString(),
+                    descriptionBook.getText().toString(),
+                    0,
+                    Environment.getExternalStorageDirectory() + "/BOOKHOUSE PDF" +"/"+ nameLink);
+            bookCaseManager.addBook(newBook);
+            Toast.makeText(BookDetailActivity.this, "Get successful", Toast.LENGTH_SHORT).show();
         }
         protected void onProgressUpdate(String... progress) {
             Log.d("ANDRO_ASYNC",progress[0]);

@@ -124,10 +124,6 @@ public class DashboardActivity extends AppCompatActivity {
         drawer_home.openDrawer(Gravity.START);
     }
 
-    public void clickToOpenPDF(View view) {
-        Intent intent = new Intent(this, ReadPDFActivity.class);
-        startActivity(intent);
-    }
 
     public void clickToGetBookDetail(View view) {
         Intent intent = new Intent(this, BookDetailActivity.class);
