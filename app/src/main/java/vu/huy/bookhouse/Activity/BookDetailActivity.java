@@ -226,7 +226,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     0,
                     Environment.getExternalStorageDirectory() + "/BOOKHOUSE PDF" +"/"+ nameLink);
             bookCaseManager.addBook(newBook);
-            Toast.makeText(BookDetailActivity.this, "Get successful", Toast.LENGTH_SHORT).show();
+
         }
         protected void onProgressUpdate(String... progress) {
             Log.d("ANDRO_ASYNC",progress[0]);
