@@ -52,7 +52,7 @@ public class BookDetailActivity extends AppCompatActivity {
 //        }
         if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            new DownloadFile().execute("https://sachvui.com/sachvui-686868666888/ebooks/2014/pdf/Sachvui.Com-ca-phe-cung-tony-tony-buoi-sang.pdf", "sachanhtin.pdf");
+            new DownloadFile().execute("https://uet.vnu.edu.vn/~chauttm/e-books/OOP_2013.pdf", "OOP_2013.pdf");
         } else {
             requestStoragePermission();
         }
@@ -60,7 +60,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
 
     }
-
     private void requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {

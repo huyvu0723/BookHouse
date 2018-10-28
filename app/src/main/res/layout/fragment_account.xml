@@ -24,6 +24,7 @@
         android:textSize="25dp"/>
 
     <TextView
+        android:id="@+id/txtInfoBalance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30dp"
@@ -31,7 +32,7 @@
         android:textStyle="bold"
         android:gravity="right"
         android:paddingRight="20dp"
-        android:text="500000$"/>
+        android:text="0"/>
 
     <TextView
         android:layout_marginTop="10dp"
@@ -42,6 +43,7 @@
         android:textSize="25dp" />
 
     <TextView
+        android:id="@+id/txtInfoDayVIP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -56,28 +58,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:text="Name:"
-        android:textSize="25dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingRight="20dp"
-        android:text="Huy Vu"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
         android:text="Email:"
         android:textSize="25dp" />
 
     <TextView
+        android:id="@+id/txtInfoEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"

@@ -9,10 +9,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import vu.huy.bookhouse.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_INPUT = 2011;
     TextView errLogin;
     EditText txtUsername, txtPassword;
     @Override
@@ -30,11 +34,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickToLogin(View view) {
-        String user = "a";
-        String pass = "a";
-
+        String user = "";
+        String pass = "";
+        String name = "huy";
+        int balance = 500000;
+        String email = "...";
         if((txtUsername.getText().toString().equals(user)) && (txtPassword.getText().toString().equals(pass))){
-            Intent intent = new Intent(this, DashboardActivity.class);
+            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+            Date currentTime = Calendar.getInstance().getTime();
+            Date dateVIP = new Date(2018, 11,20);
+
+            dateVIP.setYear(2018);
+            long diff = dateVIP.getTime() - currentTime.getTime();
+            long vipAvaiable = diff / (24 * 60 * 60 * 1000);
+            intent.putExtra("HeaderName", name);
+            intent.putExtra("Balance", balance);
+            intent.putExtra("DayVIP", vipAvaiable);
+            intent.putExtra("Email", email);
             startActivity(intent);
         }else{
             errLogin.setText("Username or Password is invalid!");
