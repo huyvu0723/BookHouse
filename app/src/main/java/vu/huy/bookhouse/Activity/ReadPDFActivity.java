@@ -33,12 +33,13 @@ public class ReadPDFActivity extends AppCompatActivity implements OnPageChangeLi
                 .swipeHorizontal(true)
                 .pageFling(true)
                 .onPageChange(this)
+                .defaultPage(5)//tính cả số 0 nên sẽ ra page 6
                 .load();
     }
 
     @Override
     public void onPageChanged(int page, int pageCount) {
-         pagePDF.setText("Page " + (page + 1));
+         pagePDF.setText("Page " + (page + 1) + "/ " + pageCount);
         //do what you want with the pageNumber
     }
 
