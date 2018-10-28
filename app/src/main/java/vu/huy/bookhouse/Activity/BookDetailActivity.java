@@ -1,9 +1,12 @@
 package vu.huy.bookhouse.Activity;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -13,22 +16,35 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
-import vu.huy.bookhouse.FileDownloader;
 import vu.huy.bookhouse.R;
 
 public class BookDetailActivity extends AppCompatActivity {
 
+    private static final int  MEGABYTE = 1024 * 1024;
     private String filepath = "BookCase";
-    private String filename = "pdf.pdf";
     File myInternalFile, directory;
+    TextView nameBook, authorBook, descriptionBook, viewBook;
     private int STORAGE_PERMISSION_CODE = 1;
+
+    private ProgressDialog mProgressDialog;
+
+    public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,22 +53,32 @@ public class BookDetailActivity extends AppCompatActivity {
         ContextWrapper contextWrapper = new ContextWrapper(
                 getApplicationContext());
         directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
+        nameBook = findViewById(R.id.txtNameBook);
+        authorBook = findViewById(R.id.txtAuthorBook);
+        descriptionBook = findViewById(R.id.txtDescriptionBook);
+        viewBook = findViewById(R.id.txtViewBook);
+        Intent intent = getIntent();
+        String IdBook = intent.getStringExtra("IdBook");
+        String id = "01";
+        String name = "success";
+        String author = "Tín mặp";
+        String description = "Rất mặp";
+        int view = 1000;
 
+        if(IdBook.equals(id)){
+            nameBook.setText(name);
+            authorBook.setText(author);
+            descriptionBook.setText(description);
+            viewBook.setText(view + "");
+        }
     }
 
     public void clickToGetPDF(View view) {
-//        myInternalFile = new File(directory, filename);
-//        try {
-//
-//            FileOutputStream fos = new FileOutputStream(myInternalFile);
-//            fos.write(123);
-//            fos.close();
-//        }catch (Exception e){
-//
-//        }
         if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            new DownloadFile().execute("https://uet.vnu.edu.vn/~chauttm/e-books/OOP_2013.pdf", "OOP_2013.pdf");
+
+            new DownloadFile().execute("https://sachvui.com/sachvui-686868666888/ebooks/2014/pdf/Sachvui.Com-ca-phe-cung-tony-tony-buoi-sang.pdf", "sachanhtin.pdf");
+
         } else {
             requestStoragePermission();
         }
@@ -60,6 +86,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
 
     }
+
     private void requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -98,16 +125,32 @@ public class BookDetailActivity extends AppCompatActivity {
             }
         }
     }
-    private class DownloadFile extends AsyncTask<String, Void, Void> {
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DIALOG_DOWNLOAD_PROGRESS:
+                mProgressDialog = new ProgressDialog(this);
+                mProgressDialog.setMessage("Downloading file..");
+                mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
+                return mProgressDialog;
+            default:
+                return null;
+        }
+    }
+    private class DownloadFile extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            showDialog(DIALOG_DOWNLOAD_PROGRESS);
         }
 
         @Override
-        protected Void doInBackground(String... strings) {
+        protected String doInBackground(String... strings) {
 
+            int count;
             String fileUrl = strings[0];
 // -> https://letuscsolutions.files.wordpress.com/2015/07/five-point-someone-chetan-bhagat_ebook.pdf
             //change pdf name;
@@ -132,8 +175,48 @@ public class BookDetailActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            FileDownloader.downloadFile(fileUrl, pdfFile);
+            try {
+
+                URL url = new URL(fileUrl);
+                URLConnection conexion = url.openConnection();
+                conexion.connect();
+
+                int lenghtOfFile = conexion.getContentLength();
+                Log.d("ANDRO_ASYNC", "Lenght of file: " + lenghtOfFile);
+
+                InputStream input = new BufferedInputStream(url.openStream());
+                OutputStream output = new FileOutputStream(pdfFile);
+
+                byte data[] = new byte[1024];
+
+                long total = 0;
+                while ((count = input.read(data)) != -1) {
+                    total += count;
+                    publishProgress(""+(int)((total*100)/lenghtOfFile));
+                    output.write(data, 0, count);
+                }
+
+                output.flush();
+                output.close();
+                input.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             return null;
+        }
+        protected void onProgressUpdate(String... progress) {
+            Log.d("ANDRO_ASYNC",progress[0]);
+            mProgressDialog.setProgress(Integer.parseInt(progress[0]));
+        }
+
+        @Override
+        protected void onPostExecute(String unused) {
+            dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
 
         }
     }
