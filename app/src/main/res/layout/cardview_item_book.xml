@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:id="@+id/cardviewBookId"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="170dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imgBookId"
+            android:background="#2d2d2d"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="130dp" />
+        <TextView
+            android:id="@+id/tvBookName"
+            android:text="Ahihi"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:maxLength="12"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="100dp"
+            android:layout_height="22dp" />
+        <TextView
+            android:id="@+id/tvBookAuthor"
+            android:text="Ahihi"
+            android:textSize="11dp"
+            android:textColor="#94b8b8"
+            android:maxLength="12"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="100dp"
+            android:layout_height="18dp" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
