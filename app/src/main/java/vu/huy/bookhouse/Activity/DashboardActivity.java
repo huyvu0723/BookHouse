@@ -29,7 +29,6 @@ import vu.huy.bookhouse.Fragment.LibraryFragment;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    Fragment selectedFrag = null;
     Fragment homeFrag, bookcaseFrag, accountFrag;
     BottomNavigationView bottomNavigationView;
     FrameLayout fragment_layout;

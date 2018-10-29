@@ -84,4 +84,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, contentValues, ID + "=" + id, null);
         db.close();
     }
+    public int getMarkBook(int id){
+        int mark = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT mark FROM " + TABLE_NAME + " WHERE " + ID + " = " + id;
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            mark = cursor.getInt(0);
+        }
+
+        db.close();
+        return mark;
+    }
 }

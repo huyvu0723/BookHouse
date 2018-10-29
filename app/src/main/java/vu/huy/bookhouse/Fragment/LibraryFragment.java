@@ -43,7 +43,6 @@ public class LibraryFragment extends Fragment {
                 intent.putExtra("Name", book.getBook_name());
                 intent.putExtra("Author", book.getBook_author());
                 intent.putExtra("Description", book.getBook_description());
-                intent.putExtra("Mark", book.getBook_mark());
                 intent.putExtra("Link", book.getBook_link());
                 startActivity(intent);
             }
