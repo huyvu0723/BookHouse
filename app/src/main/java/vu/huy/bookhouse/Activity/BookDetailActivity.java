@@ -166,7 +166,6 @@ public class BookDetailActivity extends AppCompatActivity {
 //            String fileName = strings[1];
             //tên mình thay đổi lại
             String fileName = "Book_01.pdf";
-// ->five-point-someone-chetan-bhagat_ebook.pdf Environment.getExternalStorageDirectory().getAbsolutePath()
 
             File folder = new File(Environment.getExternalStorageDirectory(), "BOOKHOUSE PDF"
             );

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -42,9 +43,15 @@ public class MainActivity extends AppCompatActivity {
         if((txtUsername.getText().toString().equals(user)) && (txtPassword.getText().toString().equals(pass))){
             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
             Date currentTime = Calendar.getInstance().getTime();
-            Date dateVIP = new Date(2018, 11,20);
+            Date dateVIP = Calendar.getInstance().getTime();
+            try {
+                dateVIP = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-21");
+            }catch (Exception e){
 
-            dateVIP.setYear(2018);
+            }
+
+
+//            dateVIP.setYear(2018);
             long diff = dateVIP.getTime() - currentTime.getTime();
             long vipAvaiable = diff / (24 * 60 * 60 * 1000);
             intent.putExtra("HeaderName", name);
