@@ -1,6 +1,7 @@
 package vu.huy.bookhouse.utilities;
 
 import android.os.StrictMode;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +17,7 @@ import static vu.huy.bookhouse.utilities.ReadStream.readStream;
 //TinLM 30/10/2018 Create utilities for Account
 
 public class AccountUtilities {
-    private static final String BaseURL = "http://192.168.100.5:8080/RestAPI/"; //cmd ipconfig
+    private static final String BaseURL = "http:/192.168.100.5:8080/RestAPI/"; //cmd ipconfig
     private static final String UserURL = "webresources/User/";
 
     private static final String userIDfield = "accid";
@@ -42,7 +43,7 @@ public class AccountUtilities {
                 result = true;
             }
         }catch (Exception e){
-            e.printStackTrace();
+            Log.e("ErrorLogin", e.getMessage());
         }
         return result;
     }
@@ -72,9 +73,34 @@ public class AccountUtilities {
 
             result = new User(userID, name, pass, fullname, balance, endDate);
         }catch (Exception e){
-            e.printStackTrace();
+            Log.e("ErrorGetUser", e.getMessage());
         }
 
         return result;
     }
+
+    //TinLM 30/10/2018 Create account
+
+    public boolean addUser(String username, String password, String fullname){
+        boolean result = false;
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url = BaseURL + UserURL + "AddUser?username=" + username + "&password=" + password + "&fullname=" + fullname;
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = readStream(urll.openStream());
+            if(respone.contains("true")){
+                result = true;
+            }
+        }catch (Exception e){
+            Log.e("ErrorAddUser", e.getMessage());
+            return result;
+        }
+        return result;
+    }
+
+
 }

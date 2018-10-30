@@ -9,7 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import vu.huy.bookhouse.R;
+import vu.huy.bookhouse.utilities.AccountUtilities;
 
+// TinLM 30/10/2018 Update create user
 public class RegisterActivity extends AppCompatActivity {
 
     TextView notiRegister;
@@ -43,16 +45,36 @@ public class RegisterActivity extends AppCompatActivity {
             checked =false;
         }
 
-        String user = "ab";
 
-        if(checked){
-            if(txtUsername.getText().toString().equals(user)){
+//        String user = "ab";
+//
+//        if(checked){
+//            if(txtUsername.getText().toString().equals(user)){
+//                notiRegister.setTextColor(getResources().getColor(R.color.colorPrimary));
+//                notiRegister.setText("Account is created successfully");
+//            }else{
+//                notiRegister.setTextColor(getResources().getColor(R.color.colorDanger));
+//                notiRegister.setText("Username or Password is invalid!");
+//            }
+//        }
+
+        //TinLM 30/10/2018 register account from json
+        if( checked ){
+            AccountUtilities utilities = new AccountUtilities();
+            String username = txtUsername.getText().toString();
+            String password = txtPassword.getText().toString();
+            String fullname = txtName.getText().toString();
+            boolean resultAddUser = utilities.addUser(username, password, fullname);
+            if( resultAddUser ) {
                 notiRegister.setTextColor(getResources().getColor(R.color.colorPrimary));
                 notiRegister.setText("Account is created successfully");
-            }else{
+            } else {
                 notiRegister.setTextColor(getResources().getColor(R.color.colorDanger));
-                notiRegister.setText("Username or Password is invalid!");
+                notiRegister.setText("Username is existed");
             }
+        } else {
+            notiRegister.setTextColor(getResources().getColor(R.color.colorDanger));
+            notiRegister.setText("Please confirm all information");
         }
 
     }
