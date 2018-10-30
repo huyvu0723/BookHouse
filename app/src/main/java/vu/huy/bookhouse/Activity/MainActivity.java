@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -70,13 +71,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
             Date currentTime = Calendar.getInstance().getTime();
             User user = accountUtilities.getUserDetail(username);
-            long diff = user.getVIPEndDate().getTime() ; currentTime.getTime();
+            long diff = 0;
             long vipAvaiable;
+            diff = user.getVIPEndDate().getTime() - currentTime.getTime();
             if (diff <= 0) {
                 vipAvaiable = 0;
+            } else {
+                vipAvaiable = diff / (24 * 60 * 60 * 1000);
             }
-            vipAvaiable = diff / (24 * 60 * 60 * 1000);
-
             intent.putExtra("HeaderName", user.getUsername());
             intent.putExtra("Balance", user.getBalance());
             intent.putExtra("DayVIP", vipAvaiable);
