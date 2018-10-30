@@ -7,6 +7,7 @@ public class Book {
     private String book_description;
     private int book_mark;
     private String book_link;
+    private String book_img;
 
     public Book(int book_id, String book_name, String book_author, String book_description, int book_mark, String book_link) {
         this.book_id = book_id;
@@ -15,6 +16,25 @@ public class Book {
         this.book_description = book_description;
         this.book_mark = book_mark;
         this.book_link = book_link;
+    }
+
+    public String getBook_img() {
+        return book_img;
+    }
+
+    public void setBook_img(String book_img) {
+        this.book_img = book_img;
+    }
+
+    public Book(int book_id, String book_name, String book_author, String book_description, int book_mark, String book_link, String book_img) {
+
+        this.book_id = book_id;
+        this.book_name = book_name;
+        this.book_author = book_author;
+        this.book_description = book_description;
+        this.book_mark = book_mark;
+        this.book_link = book_link;
+        this.book_img = book_img;
     }
 
     public Book() {

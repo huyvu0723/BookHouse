@@ -11,13 +11,14 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="100dp"
+        android:layout_height="170dp">
         <ImageView
             android:id="@+id/imgBookId"
             android:background="#2d2d2d"
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
+            android:scaleType="centerInside"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_width="100dp"
             android:layout_height="130dp" />
         <TextView
             android:id="@+id/tvBookName"

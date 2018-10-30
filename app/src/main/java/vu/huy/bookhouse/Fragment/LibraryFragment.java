@@ -1,31 +1,28 @@
 package vu.huy.bookhouse.Fragment;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import vu.huy.bookhouse.Activity.BookCaseDetailActivity;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.adapter.BookcaseRecyclerViewAdapter;
 import vu.huy.bookhouse.model.Book;
 import vu.huy.bookhouse.model.DatabaseHelper;
 
 public class LibraryFragment extends Fragment {
-    ListView listView;
+//    ListView listView;
     RecyclerView myr;
 
     DatabaseHelper bookCaseManager;
@@ -56,6 +53,7 @@ public class LibraryFragment extends Fragment {
         //       return view;
 //    }
 
+    //TinLM 29/10/2018
 // set ting gridlayout for bookcase
     @Nullable
     @Override

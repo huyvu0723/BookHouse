@@ -22,14 +22,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DESCRIPTION = "description";
     private static final String MARK = "mark";
     private static final String LINK = "link";
+    private static final String IMG = "img";
+
+    //TinLM 30/10/2018
+    //add IMG for Book
+//    static final String CREATE_DB_TABLE = " CREATE TABLE " + TABLE_NAME
+//            + " (id INTEGER PRIMARY KEY, "
+//            + " name TEXT NOT NULL, "
+//            + " author TEXT NOT NULL, "
+//            + " description TEXT NOT NULL, "
+//            + " mark INTEGER NOT NULL, "
+//            + " link TEXT NOT NULL "
+//            +" );";
+
     static final String CREATE_DB_TABLE = " CREATE TABLE " + TABLE_NAME
             + " (id INTEGER PRIMARY KEY, "
             + " name TEXT NOT NULL, "
             + " author TEXT NOT NULL, "
             + " description TEXT NOT NULL, "
             + " mark INTEGER NOT NULL, "
-            + " link TEXT NOT NULL"
-            +");";
+            + " link TEXT NOT NULL, "
+            + IMG + " TEXT NOT NULL "
+            +" );";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -53,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DESCRIPTION, book.getBook_description());
         values.put(MARK, book.getBook_mark());
         values.put(LINK, book.getBook_link());
+        values.put(IMG, book.getBook_img());
         db.insert(TABLE_NAME, null,values);
         db.close();
     }
