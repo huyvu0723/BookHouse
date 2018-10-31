@@ -14,18 +14,28 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.Fragment.AccountFragment;
 import vu.huy.bookhouse.Fragment.HomeFragment;
 import vu.huy.bookhouse.Fragment.LibraryFragment;
+import vu.huy.bookhouse.adapter.CustomCatogoryListAdapter;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -36,6 +46,10 @@ public class DashboardActivity extends AppCompatActivity {
     TextView headerName;
     Bundle extras;
 
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter listAdapter;
+    private List<String> listTitle;
+    private HashMap<String, List<String>> listChild;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +83,33 @@ public class DashboardActivity extends AppCompatActivity {
 //            email.setText(extras.getString("Email"));
         }
 
+        expandableListView = findViewById(R.id.list_cate);
+        initdata();
+        listAdapter = new CustomCatogoryListAdapter(this, listTitle, listChild);
+        expandableListView.setAdapter(listAdapter);
+        expandableListView.setIndicatorBounds(expandableListView.getWidth(), expandableListView.getWidth());
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                TextView  item = v.findViewById(R.id.list_cate_item);
+                Toast.makeText(DashboardActivity.this, item.getText().toString(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
+    private void initdata(){
+        listTitle = new ArrayList<>();
+        listChild = new HashMap<>();
+        listTitle.add("Sách Tín");
+        listTitle.add("Top sách");
+
+        List<String> tinBook = new ArrayList<>();
+        tinBook.add("This is tín");
+        List<String> topBook = new ArrayList<>();
+        topBook.add("Tín is team lead");
+        topBook.add("Team lead is tín");
+        listChild.put(listTitle.get(0),tinBook);
+        listChild.put(listTitle.get(1),topBook);
     }
     private void initView(){
         fragment_layout = findViewById(R.id.fragment_container);
@@ -81,16 +122,16 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 //        return btnOpenDrawer.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
         return super.onOptionsItemSelected(item);
-}
-
-//Chạy khi ấn bên ngoài tab để đóng menu
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        bottomNavigationView.bringToFront();
-        fragment_layout.bringToFront();
-        drawer_home.closeDrawer(Gravity.START);
-        return super.dispatchTouchEvent(ev);
     }
+
+    //Chạy khi ấn bên ngoài tab để đóng menu
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        bottomNavigationView.bringToFront();
+//        fragment_layout.bringToFront();
+//        drawer_home.closeDrawer(Gravity.START);
+//        return super.dispatchTouchEvent(ev);
+//    }
 
     //mở các fragment
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

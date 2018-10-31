@@ -14,16 +14,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
         <android.support.design.widget.NavigationView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
 
             android:layout_gravity="start"
-            app:headerLayout="@layout/header_account"
-            app:menu="@menu/drawer_menu">
+            app:headerLayout="@layout/header_account">
 
+            <ExpandableListView
+                android:paddingTop="150dp"
+                android:id="@+id/list_cate"
+                android:divider="@color/colorPrimary"
+                android:dividerHeight="0.5dp"
+                android:indicatorLeft="50dp"
+                android:layout_width="235dp"
+                android:layout_height="wrap_content">
+
+            </ExpandableListView>
         </android.support.design.widget.NavigationView>
+
+
     </android.support.v4.widget.DrawerLayout>
     <FrameLayout
         android:id="@+id/fragment_container"
