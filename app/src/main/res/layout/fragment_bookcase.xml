@@ -16,13 +16,6 @@
         android:background="@color/colorMain"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_green_24dp"
-            android:onClick="clickToMenuHome"
-            />
         <android.support.v7.widget.CardView
             android:layout_marginLeft="30dp"
             android:layout_width="300dp"

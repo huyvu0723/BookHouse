@@ -22,17 +22,19 @@
             android:layout_height="130dp" />
         <TextView
             android:id="@+id/tvBookName"
-            android:text="Ahihi"
+            android:text="Book name"
             android:textSize="16dp"
             android:textColor="#000000"
             android:maxLength="12"
             android:singleLine="true"
             android:ellipsize="end"
             android:layout_width="100dp"
-            android:layout_height="22dp" />
+            android:layout_height="22dp"
+            android:gravity="center"/>
         <TextView
             android:id="@+id/tvBookAuthor"
-            android:text="Ahihi"
+            android:gravity="center"
+            android:text="author"
             android:textSize="11dp"
             android:textColor="#94b8b8"
             android:maxLength="12"

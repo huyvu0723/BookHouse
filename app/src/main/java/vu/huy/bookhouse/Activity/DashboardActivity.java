@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,6 +43,7 @@ public class DashboardActivity extends AppCompatActivity {
     Fragment homeFrag, bookcaseFrag, accountFrag;
     BottomNavigationView bottomNavigationView;
     FrameLayout fragment_layout;
+    NavigationView navigationView;
     DrawerLayout drawer_home;
     TextView headerName;
     Bundle extras;
@@ -61,7 +63,13 @@ public class DashboardActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 homeFrag).commit();
-
+        drawer_home = findViewById(R.id.home_drawer);
+        navigationView = findViewById(R.id.naviDrawer);
+        //set cái header cho navigation trong drawer
+        View headerLayout =
+                navigationView.inflateHeaderView(R.layout.header_account);
+        //lấy cái header ra
+        TextView header = headerLayout.findViewById(R.id.txtHeaderName);
         drawer_home.setDrawerListener(new ActionBarDrawerToggle(this, drawer_home, 0, 0){
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -73,15 +81,12 @@ public class DashboardActivity extends AppCompatActivity {
                 super.onDrawerClosed(drawerView);
             }
         });
-        extras =this.getIntent().getExtras();
 
-        if(extras != null){
-            String name = extras.getString("HeaderName");
-//            headerName.setText("123");
-//            balance.setText(extras.getString("Balance"));
-//            dayVIP.setText(extras.getInt("DayVIP"));
-//            email.setText(extras.getString("Email"));
-        }
+
+        extras =this.getIntent().getExtras();
+        //set cho header drawer
+        header.setText(extras.getString("HeaderName"));
+        //set cho cái menu
         expandableListView = findViewById(R.id.list_cate);
         initdata();
         listAdapter = new CustomCatogoryListAdapter(this, listTitle, listChild);
@@ -142,6 +147,7 @@ public class DashboardActivity extends AppCompatActivity {
             switch (menuItem.getItemId()){
                 case R.id.nav_home:
 //                    selectedFrag = new HomeFragment();
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFrag).commit();
                     break;
                 case R.id.nav_library:

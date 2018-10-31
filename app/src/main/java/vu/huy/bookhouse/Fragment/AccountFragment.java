@@ -14,7 +14,7 @@ import vu.huy.bookhouse.R;
 
 public class AccountFragment extends Fragment {
 
-    TextView headerName, balance, dayVIP, email;
+    TextView headerName, balance, dayVIP;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -25,11 +25,9 @@ public class AccountFragment extends Fragment {
         headerName = view.findViewById(R.id.txtHeaderName);
         balance = view.findViewById(R.id.txtInfoBalance);
         dayVIP = view.findViewById(R.id.txtInfoDayVIP);
-        email = view.findViewById(R.id.txtInfoEmail);
             headerName.setText(extras.getString("HeaderName"));
             balance.setText(extras.getInt("Balance") + "");
             dayVIP.setText(extras.getLong("DayVIP") + "");
-            email.setText(extras.getString("Email"));
         return view;
     }
 }
