@@ -17,7 +17,7 @@ import static vu.huy.bookhouse.utilities.ReadStream.readStream;
 //TinLM 30/10/2018 Create utilities for Account
 
 public class AccountUtilities {
-    private static final String BaseURL = "http:/192.168.100.5:8080/RestAPI/"; //cmd ipconfig
+    private static final String BaseURL = "http:/10.82.138.59:8080/RestAPI/"; //cmd ipconfig
     private static final String UserURL = "webresources/User/";
 
     private static final String userIDfield = "accid";

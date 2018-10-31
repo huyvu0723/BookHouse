@@ -82,7 +82,6 @@ public class DashboardActivity extends AppCompatActivity {
 //            dayVIP.setText(extras.getInt("DayVIP"));
 //            email.setText(extras.getString("Email"));
         }
-
         expandableListView = findViewById(R.id.list_cate);
         initdata();
         listAdapter = new CustomCatogoryListAdapter(this, listTitle, listChild);
@@ -92,7 +91,10 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 TextView  item = v.findViewById(R.id.list_cate_item);
+                drawer_home.closeDrawers();
                 Toast.makeText(DashboardActivity.this, item.getText().toString(), Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(getIntent());
                 return true;
             }
         });
@@ -161,7 +163,9 @@ public class DashboardActivity extends AppCompatActivity {
     //Mở menu
     public void clickToMenuHome(View view) {
         drawer_home.bringToFront();
-        drawer_home.openDrawer(Gravity.START);
+            drawer_home.openDrawer(Gravity.START);
+
+
     }
 
 

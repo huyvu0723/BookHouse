@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.DashboardActivity" />
+        <activity android:name=".Activity.DashboardActivity"/>
         <activity android:name=".Activity.ReadPDFActivity" />
         <activity android:name=".Activity.BookDetailActivity" />
         <activity android:name=".Activity.PayVIPActivity" />
