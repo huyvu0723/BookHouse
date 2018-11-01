@@ -28,7 +28,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         BookUtilities utilities = new BookUtilities();
-        List<Book> arrayList = utilities.getBookByDate();
+        Bundle extras = getArguments();
+        int filter = extras.getInt("FilterBook");
+        List<Book> arrayList = utilities.getBookByDate(filter);
         myr =  v.findViewById(R.id.recyleBookHome);
         BookHomeRecycleViewAdapter myAdapter = new BookHomeRecycleViewAdapter( v.getContext() , arrayList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(v.getContext(),3);

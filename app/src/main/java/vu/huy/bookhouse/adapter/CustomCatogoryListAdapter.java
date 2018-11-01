@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 import vu.huy.bookhouse.R;
+import vu.huy.bookhouse.model.Category;
 
 public class CustomCatogoryListAdapter extends BaseExpandableListAdapter {
     private Context context;
-    private List<String> listTitle;
-    private HashMap<String, List<String>> listItem;
+    private List<Category> listTitle;
+    private HashMap<Category, List<Category>> listItem;
 
-    public CustomCatogoryListAdapter(Context context, List<String> listTitle, HashMap<String, List<String>> listItem) {
+    public CustomCatogoryListAdapter(Context context, List<Category> listTitle, HashMap<Category, List<Category>> listItem) {
         this.context = context;
         this.listTitle = listTitle;
         this.listItem = listItem;
@@ -62,28 +63,28 @@ public class CustomCatogoryListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String title = (String) getGroup(groupPosition);
+        Category title = (Category) getGroup(groupPosition);
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_group, null);
         }
         TextView txtTitle = convertView.findViewById(R.id.list_Cate_Title);
         txtTitle.setTypeface(null, Typeface.BOLD);
-        txtTitle.setText(title);
+        txtTitle.setText(title.getCatName());
 
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final String item = (String) getChild(groupPosition, childPosition);
+        Category item = (Category) getChild(groupPosition, childPosition);
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_item, null);
         }
         TextView txtItem = convertView.findViewById(R.id.list_cate_item);
         txtItem.setTypeface(null, Typeface.BOLD);
-        txtItem.setText(item);
+        txtItem.setText(item.getCatName());
         return convertView;
     }
 
