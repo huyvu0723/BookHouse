@@ -10,6 +10,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.model.User;
 
 import static vu.huy.bookhouse.utilities.ReadStream.readStream;
@@ -17,8 +18,7 @@ import static vu.huy.bookhouse.utilities.ReadStream.readStream;
 //TinLM 30/10/2018 Create utilities for Account
 
 public class AccountUtilities {
-    private static final String BaseURL = "http:/192.168.100.5:8080/RestAPI/"; //cmd ipconfig
-    private static final String UserURL = "webresources/User/";
+
 
     private static final String userIDfield = "accid";
     private static final String userNamefield = "accusername";
@@ -33,7 +33,7 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = BaseURL + UserURL + "Login?username=" + username + "&password=" + password;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "Login?username=" + username + "&password=" + password;
         String respone = "";
 
         try {
@@ -54,7 +54,7 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = BaseURL + UserURL + "GetUser?username=" + username;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "GetUser?username=" + username;
         String respone = "";
 
         try {
@@ -86,7 +86,7 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = BaseURL + UserURL + "AddUser?username=" + username + "&password=" + password + "&fullname=" + fullname;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "AddUser?username=" + username + "&password=" + password + "&fullname=" + fullname;
         String respone = "";
 
         try {
