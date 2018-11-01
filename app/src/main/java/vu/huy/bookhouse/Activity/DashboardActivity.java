@@ -54,6 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private List<Category> listTitle;
     private HashMap<Category, List<Category>> listChild;
+    BookUtilities utilities;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +62,11 @@ public class DashboardActivity extends AppCompatActivity {
         homeFrag = new HomeFragment();
         bookcaseFrag = new LibraryFragment();
         accountFrag = new AccountFragment();
+        utilities = new BookUtilities();
         initView();
+        extras =this.getIntent().getExtras();
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        homeFrag.setArguments(extras);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 homeFrag).commit();
         drawer_home = findViewById(R.id.home_drawer);
@@ -85,41 +89,31 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
 
-        extras =this.getIntent().getExtras();
         //set cho header drawer
         header.setText(extras.getString("HeaderName"));
         //set cho cái menu
         expandableListView = findViewById(R.id.list_cate);
-        initdata();
+        initdataCategory();
         listAdapter = new CustomCatogoryListAdapter(this, listTitle, listChild);
         expandableListView.setAdapter(listAdapter);
         expandableListView.setIndicatorBounds(expandableListView.getWidth(), expandableListView.getWidth());
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                TextView  item = v.findViewById(R.id.list_cate_item);
+                List<Category> child = utilities.getChildCategory(listTitle.get(groupPosition).getCatId());
+                Category selectedCat = child.get(childPosition);
                 drawer_home.closeDrawers();
-                Toast.makeText(DashboardActivity.this, item.getText().toString(), Toast.LENGTH_SHORT).show();
+                Intent reload = getIntent();
+                reload.putExtra("FilterBook", selectedCat.getCatId());
                 finish();
-                startActivity(getIntent());
+                startActivity(reload);
                 return true;
             }
         });
     }
-    private void initdata(){
-        BookUtilities utilities = new BookUtilities();
+    private void initdataCategory(){
         listTitle = new ArrayList<>();
         listChild = new HashMap<>();
-//        listTitle.add("Sách Tín");
-//        listTitle.add("Top sách");
-//
-//        List<String> tinBook = new ArrayList<>();
-//        tinBook.add("This is tín");
-//        List<String> topBook = new ArrayList<>();
-//        topBook.add("Tín is team lead");
-//        topBook.add("Team lead is tín");
-//        listChild.put(listTitle.get(0),tinBook);
-//        listChild.put(listTitle.get(1),topBook);
         listTitle = utilities.getParentCategory();
         for (int i = 0; i < listTitle.size(); i++) {
             List<Category> child = utilities.getChildCategory(listTitle.get(i).getCatId());
@@ -155,7 +149,7 @@ public class DashboardActivity extends AppCompatActivity {
             switch (menuItem.getItemId()){
                 case R.id.nav_home:
 //                    selectedFrag = new HomeFragment();
-
+                    homeFrag.setArguments(extras);
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFrag).commit();
                     break;
                 case R.id.nav_library:
@@ -164,7 +158,6 @@ public class DashboardActivity extends AppCompatActivity {
                     break;
                 case R.id.nav_account:
 //                    selectedFrag = new AccountFragment();
-                    Bundle agrument = new Bundle();
                     accountFrag.setArguments(extras);
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,accountFrag).commit();
                     break;
