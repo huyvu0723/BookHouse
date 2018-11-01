@@ -223,7 +223,8 @@ public class BookDetailActivity extends AppCompatActivity {
                     authorBook.getText().toString(),
                     descriptionBook.getText().toString(),
                     0,
-                    Environment.getExternalStorageDirectory() + "/BOOKHOUSE PDF" +"/"+ nameLink
+                    Environment.getExternalStorageDirectory() + "/BOOKHOUSE PDF" +"/"+ nameLink,
+                    "for future"
                     );
             bookCaseManager.addBook(newBook);
 

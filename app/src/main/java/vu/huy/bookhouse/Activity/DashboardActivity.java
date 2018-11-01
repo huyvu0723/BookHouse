@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,28 +15,43 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.Fragment.AccountFragment;
 import vu.huy.bookhouse.Fragment.HomeFragment;
 import vu.huy.bookhouse.Fragment.LibraryFragment;
+import vu.huy.bookhouse.adapter.CustomCatogoryListAdapter;
 
 public class DashboardActivity extends AppCompatActivity {
 
     Fragment homeFrag, bookcaseFrag, accountFrag;
     BottomNavigationView bottomNavigationView;
     FrameLayout fragment_layout;
+    NavigationView navigationView;
     DrawerLayout drawer_home;
     TextView headerName;
     Bundle extras;
 
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter listAdapter;
+    private List<String> listTitle;
+    private HashMap<String, List<String>> listChild;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +63,13 @@ public class DashboardActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 homeFrag).commit();
-
+        drawer_home = findViewById(R.id.home_drawer);
+        navigationView = findViewById(R.id.naviDrawer);
+        //set cái header cho navigation trong drawer
+        View headerLayout =
+                navigationView.inflateHeaderView(R.layout.header_account);
+        //lấy cái header ra
+        TextView header = headerLayout.findViewById(R.id.txtHeaderName);
         drawer_home.setDrawerListener(new ActionBarDrawerToggle(this, drawer_home, 0, 0){
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -59,16 +81,42 @@ public class DashboardActivity extends AppCompatActivity {
                 super.onDrawerClosed(drawerView);
             }
         });
+
+
         extras =this.getIntent().getExtras();
+        //set cho header drawer
+        header.setText(extras.getString("HeaderName"));
+        //set cho cái menu
+        expandableListView = findViewById(R.id.list_cate);
+        initdata();
+        listAdapter = new CustomCatogoryListAdapter(this, listTitle, listChild);
+        expandableListView.setAdapter(listAdapter);
+        expandableListView.setIndicatorBounds(expandableListView.getWidth(), expandableListView.getWidth());
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                TextView  item = v.findViewById(R.id.list_cate_item);
+                drawer_home.closeDrawers();
+                Toast.makeText(DashboardActivity.this, item.getText().toString(), Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(getIntent());
+                return true;
+            }
+        });
+    }
+    private void initdata(){
+        listTitle = new ArrayList<>();
+        listChild = new HashMap<>();
+        listTitle.add("Sách Tín");
+        listTitle.add("Top sách");
 
-        if(extras != null){
-            String name = extras.getString("HeaderName");
-//            headerName.setText("123");
-//            balance.setText(extras.getString("Balance"));
-//            dayVIP.setText(extras.getInt("DayVIP"));
-//            email.setText(extras.getString("Email"));
-        }
-
+        List<String> tinBook = new ArrayList<>();
+        tinBook.add("This is tín");
+        List<String> topBook = new ArrayList<>();
+        topBook.add("Tín is team lead");
+        topBook.add("Team lead is tín");
+        listChild.put(listTitle.get(0),tinBook);
+        listChild.put(listTitle.get(1),topBook);
     }
     private void initView(){
         fragment_layout = findViewById(R.id.fragment_container);
@@ -81,16 +129,16 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 //        return btnOpenDrawer.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
         return super.onOptionsItemSelected(item);
-}
-
-//Chạy khi ấn bên ngoài tab để đóng menu
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        bottomNavigationView.bringToFront();
-        fragment_layout.bringToFront();
-        drawer_home.closeDrawer(Gravity.START);
-        return super.dispatchTouchEvent(ev);
     }
+
+    //Chạy khi ấn bên ngoài tab để đóng menu
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        bottomNavigationView.bringToFront();
+//        fragment_layout.bringToFront();
+//        drawer_home.closeDrawer(Gravity.START);
+//        return super.dispatchTouchEvent(ev);
+//    }
 
     //mở các fragment
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -99,6 +147,7 @@ public class DashboardActivity extends AppCompatActivity {
             switch (menuItem.getItemId()){
                 case R.id.nav_home:
 //                    selectedFrag = new HomeFragment();
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFrag).commit();
                     break;
                 case R.id.nav_library:
@@ -120,7 +169,9 @@ public class DashboardActivity extends AppCompatActivity {
     //Mở menu
     public void clickToMenuHome(View view) {
         drawer_home.bringToFront();
-        drawer_home.openDrawer(Gravity.START);
+            drawer_home.openDrawer(Gravity.START);
+
+
     }
 
 

@@ -28,7 +28,8 @@
         <activity android:name=".Activity.ReadPDFActivity" />
         <activity android:name=".Activity.BookDetailActivity" />
         <activity android:name=".Activity.PayVIPActivity" />
-        <activity android:name=".Activity.BookCaseDetailActivity"></activity>
+        <activity android:name=".Activity.BookCaseDetailActivity" />
+        <activity android:name=".Activity.AddMoneyActivity"></activity>
     </application>
 
 </manifest>

@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("HeaderName", user.getUsername());
             intent.putExtra("Balance", user.getBalance());
             intent.putExtra("DayVIP", vipAvaiable);
-            intent.putExtra("Email", "... bỏ cái này nha");
             startActivity(intent);
         } else {
             errLogin.setText("Username or Password is invalid!");
