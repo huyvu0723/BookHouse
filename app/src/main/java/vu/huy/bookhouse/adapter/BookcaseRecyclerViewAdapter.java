@@ -45,7 +45,7 @@ public class BookcaseRecyclerViewAdapter extends RecyclerView.Adapter<BookcaseRe
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int position) {
         myViewHolder.tvBookName.setText(mData.get(position).getBook_name());
         myViewHolder.tvBookAuthor.setText(mData.get(position).getBook_author());
-        myViewHolder.tvBookId.setText(mData.get(position).getBook_id());
+
 
         // check book image link to set image
         if(mData.get(position).getBook_img() == null) {
@@ -84,7 +84,7 @@ public class BookcaseRecyclerViewAdapter extends RecyclerView.Adapter<BookcaseRe
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvBookName,tvBookAuthor, tvBookId;
+        TextView tvBookName,tvBookAuthor;
         ImageView imgBookId;
         CardView cardView;
 
@@ -92,7 +92,6 @@ public class BookcaseRecyclerViewAdapter extends RecyclerView.Adapter<BookcaseRe
             super(itemView);
             tvBookName = itemView.findViewById(R.id.tvBookName);
             tvBookAuthor = itemView.findViewById(R.id.tvBookAuthor);
-            tvBookId = itemView.findViewById(R.id.tvIdBook);
             imgBookId = itemView.findViewById(R.id.imgBookId);
             cardView = itemView.findViewById(R.id.cardviewBookId);
         }

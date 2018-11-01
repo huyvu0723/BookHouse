@@ -30,8 +30,8 @@ public class HomeFragment extends Fragment {
         BookUtilities utilities = new BookUtilities();
         List<Book> arrayList = utilities.getBookByDate();
         myr =  v.findViewById(R.id.recyleBookHome);
-        BookHomeRecycleViewAdapter myAdapter = new BookHomeRecycleViewAdapter( getActivity() , arrayList);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
+        BookHomeRecycleViewAdapter myAdapter = new BookHomeRecycleViewAdapter( v.getContext() , arrayList);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(v.getContext(),3);
         myr.setLayoutManager(layoutManager);
         myr.setAdapter(myAdapter);
         return v;

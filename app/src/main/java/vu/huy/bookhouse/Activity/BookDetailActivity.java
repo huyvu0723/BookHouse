@@ -43,7 +43,7 @@ public class BookDetailActivity extends AppCompatActivity {
     File myInternalFile, directory;
     TextView nameBook, authorBook, descriptionBook, viewBook;
     private int STORAGE_PERMISSION_CODE = 1;
-
+    Intent intent;
     private ProgressDialog mProgressDialog;
 
     DatabaseHelper bookCaseManager;
@@ -61,20 +61,19 @@ public class BookDetailActivity extends AppCompatActivity {
         authorBook = findViewById(R.id.txtAuthorBook);
         descriptionBook = findViewById(R.id.txtDescriptionBook);
         viewBook = findViewById(R.id.txtViewBook);
-        Intent intent = getIntent();
-        String IdBook = intent.getStringExtra("IdBook");
-        String id = "01";
-        String name = "Book 01";
-        String author = "Tin Fat";
-        String description = "Really really fat";
+        intent = getIntent();
+
+        String name = getIntent().getStringExtra("Name");
+        String author = getIntent().getStringExtra("Author");
+        String description = getIntent().getStringExtra("Description");
         int view = 1000;
 
-        if(IdBook.equals(id)){
+
             nameBook.setText(name);
             authorBook.setText(author);
             descriptionBook.setText(description);
             viewBook.setText(view + "");
-        }
+
 
 
         //SQLite save
@@ -85,7 +84,7 @@ public class BookDetailActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
-            new DownloadFile().execute("https://sachvui.com/sachvui-686868666888/ebooks/2014/pdf/Sachvui.Com-ca-phe-cung-tony-tony-buoi-sang.pdf", "sachanhtin.pdf");
+            new DownloadFile().execute(intent.getStringExtra("Link"), intent.getStringExtra("Name") + ".pdf");
 
         } else {
             requestStoragePermission();
@@ -165,7 +164,7 @@ public class BookDetailActivity extends AppCompatActivity {
             //default name theo link pdf
 //            String fileName = strings[1];
             //tên mình thay đổi lại
-            String fileName = "Book_01.pdf";
+            String fileName = strings[1];
 
             File folder = new File(Environment.getExternalStorageDirectory(), "BOOKHOUSE PDF"
             );

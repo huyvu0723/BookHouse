@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null,values);
         db.close();
     }
-    public ArrayList<Book> getAllBook(){
+    public List<Book> getAllBook(){
         ArrayList<Book> listBook = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NAME;
 

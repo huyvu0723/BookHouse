@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.adapter.BookcaseRecyclerViewAdapter;
@@ -59,11 +60,11 @@ public class LibraryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_bookcase, container, false);
-        bookCaseManager = new DatabaseHelper(getActivity());
-        ArrayList<Book> arrayList = bookCaseManager.getAllBook();
+        bookCaseManager = new DatabaseHelper(v.getContext());
+        List<Book> arrayList = bookCaseManager.getAllBook();
         myr =  v.findViewById(R.id.recycleviewBookId);
-        BookcaseRecyclerViewAdapter myAdapter = new BookcaseRecyclerViewAdapter( getActivity() , arrayList);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
+        BookcaseRecyclerViewAdapter myAdapter = new BookcaseRecyclerViewAdapter( v.getContext() , arrayList);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(v.getContext(),3);
         myr.setLayoutManager(layoutManager);
         myr.setAdapter(myAdapter);
         return v;

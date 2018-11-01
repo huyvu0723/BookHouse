@@ -1,6 +1,7 @@
 package vu.huy.bookhouse.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +15,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import vu.huy.bookhouse.Activity.BookCaseDetailActivity;
+import vu.huy.bookhouse.Activity.BookDetailActivity;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.model.Book;
+import vu.huy.bookhouse.utilities.BookUtilities;
 
 public class BookHomeRecycleViewAdapter extends RecyclerView.Adapter<BookHomeRecycleViewAdapter.MyViewHolder> {
 
@@ -36,7 +40,7 @@ public class BookHomeRecycleViewAdapter extends RecyclerView.Adapter<BookHomeRec
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int position) {
         myViewHolder.tvBookName.setText(mData.get(position).getBook_name());
         myViewHolder.tvBookAuthor.setText(mData.get(position).getBook_author());
         if( mData.get(position).getBook_img() == null ) {
@@ -47,6 +51,15 @@ public class BookHomeRecycleViewAdapter extends RecyclerView.Adapter<BookHomeRec
         myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Book book = (Book) mData.get(position);
+                Intent intent = new Intent(mContext, BookDetailActivity.class);
+                intent.putExtra("Id", book.getBook_id());
+                intent.putExtra("Name", book.getBook_name());
+                intent.putExtra("Author", book.getBook_author());
+                intent.putExtra("Description", book.getBook_description());
+                intent.putExtra("Link", book.getBook_link());
+                intent.putExtra("Image", book.getBook_img());
+                mContext.startActivity(intent);
 
             }
         });

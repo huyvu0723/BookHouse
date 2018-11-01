@@ -65,46 +65,50 @@ public class BookUtilities {
         return lstBook;
     }
 
-    public Book getBookByID(){
-        Book book = null;
-
+    public Book searchBookByID(String ID){
+        Book lstBook = null;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.BookURL + "SearchBookByID";
+        String url = ConstainServer.BaseURL + ConstainServer.BookURL + "SearchBookByID?key=" + ID;
         String respone = "";
 
         try {
             URL urll = new URL(url);
             respone = ReadStream.readStream(urll.openStream());
 
+            JSONArray arr = new JSONArray(respone);
+            lstBook = new Book();
+            for (int i = 0; i < arr.length(); i++)
+            {
+                JSONObject jsonObj = arr.getJSONObject(i);
 
-            JSONObject jsonObj = new JSONObject(respone);
 
-
-               book = new Book();
                 if(jsonObj.has(bookIDfield)){
-                    book.setBook_id(jsonObj.getInt(bookIDfield));
+                    lstBook.setBook_id(jsonObj.getInt(bookIDfield));
                 }
                 if(jsonObj.has(bookNamefield)){
-                    book.setBook_name(jsonObj.getString(bookNamefield));
+                    lstBook.setBook_name(jsonObj.getString(bookNamefield));
                 }
                 if(jsonObj.has(bookauthorfield)){
-                    book.setBook_author(jsonObj.getString(bookauthorfield));
-                }
-                if(jsonObj.has(bookIMGfield)){
-                    book.setBook_img(jsonObj.getString(bookIMGfield));
-                }
-                if(jsonObj.has(bookDescriptionfield)){
-                    book.setBook_description(jsonObj.getString(bookDescriptionfield));
+                    lstBook.setBook_author(jsonObj.getString(bookauthorfield));
                 }
                 if(jsonObj.has(bookLinkfield)){
-                    book.setBook_link(jsonObj.getString(bookLinkfield));
+                    lstBook.setBook_link(jsonObj.getString(bookLinkfield));
+                }
+                if(jsonObj.has(bookIMGfield)){
+                    lstBook.setBook_img(jsonObj.getString(bookIMGfield));
+                }
+                if(jsonObj.has(bookDescriptionfield)){
+                    lstBook.setBook_description(jsonObj.getString(bookDescriptionfield));
                 }
 
+
+            }
 
         }catch (Exception e){
             e.printStackTrace();
         }
-        return book;
+        return lstBook;
     }
+
 }
