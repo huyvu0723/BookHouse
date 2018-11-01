@@ -37,6 +37,8 @@ import vu.huy.bookhouse.Fragment.AccountFragment;
 import vu.huy.bookhouse.Fragment.HomeFragment;
 import vu.huy.bookhouse.Fragment.LibraryFragment;
 import vu.huy.bookhouse.adapter.CustomCatogoryListAdapter;
+import vu.huy.bookhouse.model.Category;
+import vu.huy.bookhouse.utilities.BookUtilities;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -50,8 +52,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     private ExpandableListView expandableListView;
     private ExpandableListAdapter listAdapter;
-    private List<String> listTitle;
-    private HashMap<String, List<String>> listChild;
+    private List<Category> listTitle;
+    private HashMap<Category, List<Category>> listChild;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,18 +107,24 @@ public class DashboardActivity extends AppCompatActivity {
         });
     }
     private void initdata(){
+        BookUtilities utilities = new BookUtilities();
         listTitle = new ArrayList<>();
         listChild = new HashMap<>();
-        listTitle.add("Sách Tín");
-        listTitle.add("Top sách");
-
-        List<String> tinBook = new ArrayList<>();
-        tinBook.add("This is tín");
-        List<String> topBook = new ArrayList<>();
-        topBook.add("Tín is team lead");
-        topBook.add("Team lead is tín");
-        listChild.put(listTitle.get(0),tinBook);
-        listChild.put(listTitle.get(1),topBook);
+//        listTitle.add("Sách Tín");
+//        listTitle.add("Top sách");
+//
+//        List<String> tinBook = new ArrayList<>();
+//        tinBook.add("This is tín");
+//        List<String> topBook = new ArrayList<>();
+//        topBook.add("Tín is team lead");
+//        topBook.add("Team lead is tín");
+//        listChild.put(listTitle.get(0),tinBook);
+//        listChild.put(listTitle.get(1),topBook);
+        listTitle = utilities.getParentCategory();
+        for (int i = 0; i < listTitle.size(); i++) {
+            List<Category> child = utilities.getChildCategory(listTitle.get(i).getCatId());
+            listChild.put(listTitle.get(i), child);
+        }
     }
     private void initView(){
         fragment_layout = findViewById(R.id.fragment_container);
