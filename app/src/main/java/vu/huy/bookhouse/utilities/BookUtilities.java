@@ -32,16 +32,20 @@ public class BookUtilities {
 
 
 
-    public List<Book> getBookByDate(int filterID){
+    public List<Book> getBookByDate(int filterID, String search){
         List<Book> lstBook = null;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String url;
-        if(filterID > 0){
-            url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByCat?catID=" + filterID;
-        }else {
-            url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByDate";
+        if(search.length() > 0){
+            url = ConstainServer.BaseURL + ConstainServer.BookURL + "SearchBook?key=" + search;
+        }else{
+            if(filterID > 0){
+                url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByCat?catID=" + filterID;
+            }else {
+                url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByDate";
+            }
         }
         String respone = "";
 

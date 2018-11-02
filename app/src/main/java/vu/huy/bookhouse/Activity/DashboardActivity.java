@@ -11,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -50,7 +52,6 @@ public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawer_home;
     TextView headerName;
     Bundle extras;
-    EditText searchHome;
 
     private ExpandableListView expandableListView;
     private ExpandableListAdapter listAdapter;
@@ -73,7 +74,6 @@ public class DashboardActivity extends AppCompatActivity {
                 homeFrag).commit();
         drawer_home = findViewById(R.id.home_drawer);
         navigationView = findViewById(R.id.naviDrawer);
-        searchHome = findViewById(R.id.txtSearchHome);
 
         //set cái header cho navigation trong drawer
         View headerLayout =

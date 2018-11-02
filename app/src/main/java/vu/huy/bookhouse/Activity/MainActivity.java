@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("Balance", user.getBalance());
             intent.putExtra("DayVIP", vipAvaiable);
             intent.putExtra("FilterBook", 0);
+            intent.putExtra("SearchBook", "");
             startActivity(intent);
         } else {
             errLogin.setText("Username or Password is invalid!");
