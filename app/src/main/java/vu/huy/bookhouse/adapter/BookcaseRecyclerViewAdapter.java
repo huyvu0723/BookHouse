@@ -13,21 +13,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.util.List;
 
 import vu.huy.bookhouse.Activity.BookCaseDetailActivity;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.model.Book;
+import vu.huy.bookhouse.model.Bookcase;
 
 // TinLM 30/10/2018 Create
 
 public class BookcaseRecyclerViewAdapter extends RecyclerView.Adapter<BookcaseRecyclerViewAdapter.MyViewHolder>  {
 
     private Context mContext;
-    private List<Book> mData;
+    private List<Bookcase> mData;
 
-    public BookcaseRecyclerViewAdapter(Context mContext, List<Book> mData) {
+    public BookcaseRecyclerViewAdapter(Context mContext, List<Bookcase> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -43,35 +46,37 @@ public class BookcaseRecyclerViewAdapter extends RecyclerView.Adapter<BookcaseRe
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int position) {
-        myViewHolder.tvBookName.setText(mData.get(position).getBook_name());
-        myViewHolder.tvBookAuthor.setText(mData.get(position).getBook_author());
+        myViewHolder.tvBookName.setText(mData.get(position).getName());
+        myViewHolder.tvBookAuthor.setText(mData.get(position).getAutName());
 
 
         // check book image link to set image
-        if(mData.get(position).getBook_img() == null) {
+        if(mData.get(position).getBookImage() == null) {
             myViewHolder.imgBookId.setImageResource(R.drawable.bookhouse);
         } else {
             // we need to check link exists
-            File imgFile = new  File(mData.get(position).getBook_img());
-            if(imgFile.exists()){
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                myViewHolder.imgBookId.setImageBitmap(myBitmap);
-            } else {
-                myViewHolder.imgBookId.setImageResource(R.drawable.book);
-            }
+//            File imgFile = new  File(mData.get(position).getBook_img());
+//            if(imgFile.exists()){
+//                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//                myViewHolder.imgBookId.setImageBitmap(myBitmap);
+
+//            } else {
+//                myViewHolder.imgBookId.setImageResource(R.drawable.book);
+//            }
+            Picasso.get().load(mData.get(position).getBookImage()).into(myViewHolder.imgBookId);
         }
 
         myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Book book = (Book) mData.get(position);
+                Bookcase book = (Bookcase) mData.get(position);
                 Intent intent = new Intent(mContext, BookCaseDetailActivity.class);
-                intent.putExtra("Id", book.getBook_id());
-                intent.putExtra("Name", book.getBook_name());
-                intent.putExtra("Author", book.getBook_author());
-                intent.putExtra("Description", book.getBook_description());
-                intent.putExtra("Link", book.getBook_link());
-                intent.putExtra("Image", book.getBook_img());
+                intent.putExtra("Id", book.getBookId());
+                intent.putExtra("Name", book.getName());
+                intent.putExtra("Author", book.getAutName());
+                intent.putExtra("Description", book.getBookDescription());
+                intent.putExtra("Link", book.getBookLink());
+                intent.putExtra("Image", book.getBookImage());
                 mContext.startActivity(intent);
             }
         });

@@ -35,6 +35,7 @@ import java.net.URLConnection;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.model.Book;
 import vu.huy.bookhouse.model.DatabaseHelper;
+import vu.huy.bookhouse.utilities.BookcaseUtilities;
 
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -89,8 +90,6 @@ public class BookDetailActivity extends AppCompatActivity {
         } else {
             requestStoragePermission();
         }
-
-
 
     }
 
@@ -226,6 +225,10 @@ public class BookDetailActivity extends AppCompatActivity {
                     "for future"
                     );
             bookCaseManager.addBook(newBook);
+
+            //TinLM 2/11/2018 post bookcase
+            BookcaseUtilities utilities = new BookcaseUtilities();
+
 
         }
         protected void onProgressUpdate(String... progress) {

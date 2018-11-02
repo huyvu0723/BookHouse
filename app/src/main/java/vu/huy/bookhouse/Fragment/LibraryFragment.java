@@ -20,7 +20,9 @@ import java.util.List;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.adapter.BookcaseRecyclerViewAdapter;
 import vu.huy.bookhouse.model.Book;
+import vu.huy.bookhouse.model.Bookcase;
 import vu.huy.bookhouse.model.DatabaseHelper;
+import vu.huy.bookhouse.utilities.BookcaseUtilities;
 
 public class LibraryFragment extends Fragment {
 //    ListView listView;
@@ -61,7 +63,8 @@ public class LibraryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_bookcase, container, false);
         bookCaseManager = new DatabaseHelper(v.getContext());
-        List<Book> arrayList = bookCaseManager.getAllBook();
+        BookcaseUtilities utilities = new BookcaseUtilities();
+        List<Bookcase> arrayList = utilities.getBookcaseByDId(1);
         myr =  v.findViewById(R.id.recycleviewBookId);
         BookcaseRecyclerViewAdapter myAdapter = new BookcaseRecyclerViewAdapter( v.getContext() , arrayList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(v.getContext(),3);
