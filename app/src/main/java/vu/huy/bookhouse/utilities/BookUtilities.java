@@ -69,6 +69,13 @@ public class BookUtilities {
                 if(jsonObj.has(bookIMGfield)){
                     book.setBook_img(jsonObj.getString(bookIMGfield));
                 }
+                if(jsonObj.has(bookLinkfield)){
+                    book.setBook_link(jsonObj.getString(bookLinkfield));
+                }
+                if(jsonObj.has(bookDescriptionfield)){
+                    book.setBook_description(jsonObj.getString(bookDescriptionfield));
+                }
+
                 lstBook.add(book);
             }
 
