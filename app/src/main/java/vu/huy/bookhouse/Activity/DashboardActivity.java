@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -49,6 +50,7 @@ public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawer_home;
     TextView headerName;
     Bundle extras;
+    EditText searchHome;
 
     private ExpandableListView expandableListView;
     private ExpandableListAdapter listAdapter;
@@ -71,6 +73,8 @@ public class DashboardActivity extends AppCompatActivity {
                 homeFrag).commit();
         drawer_home = findViewById(R.id.home_drawer);
         navigationView = findViewById(R.id.naviDrawer);
+        searchHome = findViewById(R.id.txtSearchHome);
+
         //set cái header cho navigation trong drawer
         View headerLayout =
                 navigationView.inflateHeaderView(R.layout.header_account);
@@ -105,8 +109,13 @@ public class DashboardActivity extends AppCompatActivity {
                 drawer_home.closeDrawers();
                 Intent reload = getIntent();
                 reload.putExtra("FilterBook", selectedCat.getCatId());
-                finish();
-                startActivity(reload);
+
+                extras = reload.getExtras();
+                homeFrag = new HomeFragment();
+                homeFrag.setArguments(extras);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFrag).commit();
+//                finish();
+//                startActivity(reload);
                 return true;
             }
         });
