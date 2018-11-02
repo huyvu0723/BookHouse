@@ -114,6 +114,9 @@ public class DashboardActivity extends AppCompatActivity {
                 homeFrag = new HomeFragment();
                 homeFrag.setArguments(extras);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFrag).commit();
+
+        bottomNavigationView.bringToFront();
+        fragment_layout.bringToFront();
 //                finish();
 //                startActivity(reload);
                 return true;
