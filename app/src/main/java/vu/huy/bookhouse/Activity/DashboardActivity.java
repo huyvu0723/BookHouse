@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -129,6 +130,27 @@ public class DashboardActivity extends AppCompatActivity {
                 return true;
             }
         });
+        drawer_home.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+                fragment_layout.bringToFront();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+
+            }
+        });
     }
     private void initdataCategory(){
         listTitle = new ArrayList<>();
@@ -159,13 +181,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     //Chạy khi ấn bên ngoài tab để đóng menu
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        bottomNavigationView.bringToFront();
-//        fragment_layout.bringToFront();
-//        drawer_home.closeDrawer(Gravity.START);
-//        return super.dispatchTouchEvent(ev);
-//    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        fragment_layout.bringToFront();
+        drawer_home.closeDrawers();
+        return super.dispatchTouchEvent(ev);
+    }
 
     //mở các fragment
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -179,11 +200,15 @@ public class DashboardActivity extends AppCompatActivity {
                     break;
                 case R.id.nav_library:
 //                    selectedFrag = new LibraryFragment();
+
+                    drawer_home.closeDrawers();
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,bookcaseFrag).commit();
                     break;
                 case R.id.nav_account:
 //                    selectedFrag = new AccountFragment();
                     accountFrag.setArguments(extras);
+
+                    drawer_home.closeDrawers();
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,accountFrag).commit();
                     break;
             }
@@ -194,8 +219,10 @@ public class DashboardActivity extends AppCompatActivity {
 
     //Mở menu
     public void clickToMenuHome(View view) {
+
         drawer_home.bringToFront();
-            drawer_home.openDrawer(Gravity.START);
+
+        drawer_home.openDrawer(GravityCompat.START);
 
 
     }
