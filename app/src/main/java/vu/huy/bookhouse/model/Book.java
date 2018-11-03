@@ -8,6 +8,7 @@ public class Book {
     private int book_mark;
     private String book_link;
     private String book_img;
+    private boolean vip;
 
     public Book(int book_id, String book_name, String book_author, String book_description, int book_mark, String book_link) {
         this.book_id = book_id;
@@ -40,6 +41,15 @@ public class Book {
     public Book() {
 
     }
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
     public int getBook_id() {
         return book_id;
     }

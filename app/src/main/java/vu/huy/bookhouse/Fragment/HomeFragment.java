@@ -70,7 +70,5 @@ public class HomeFragment extends Fragment {
         myr.setAdapter(myAdapter);
         return v;
     }
-    public void loadBook(){
-
-    }
+    
 }

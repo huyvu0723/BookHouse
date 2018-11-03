@@ -29,7 +29,7 @@ public class BookcaseUtilities {
     private static final String ratefield = "rate";
     private static final String bookDescription = "bookdescription";
 
-    public boolean postBookcase(String accId, String bookId) {
+    public boolean postBookcase(String accId, int bookId) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String url = ConstainServer.BaseURL + ConstainServer.BookcaseURL
@@ -86,6 +86,9 @@ public class BookcaseUtilities {
                 if(jsonObj.has(bookDescription)) {
                     bookcase.setBookDescription(jsonObj.getString(bookDescription));
                 }
+                if(jsonObj.has(bookIdfield)) {
+                    bookcase.setBookId(Integer.parseInt(jsonObj.getString(bookIdfield)));
+                }
 
                 lstBook.add(bookcase);
             }
@@ -96,5 +99,23 @@ public class BookcaseUtilities {
         return lstBook;
     }
 
+    public boolean checkBookcase(String accId, int bookId) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url = ConstainServer.BaseURL + ConstainServer.BookcaseURL
+                + "checkBookcase?accId=" + accId + "&bookId=" + bookId;
+        String respone = "";
+        boolean result = false;
+        try {
+            URL urll = new URL(url);
+            respone = readStream(urll.openStream());
+            if(respone.contains("true")){
+                result = true;
+            }
+        }catch (Exception e){
+            Log.e("ErrorBookcase", e.getMessage());
+        }
+        return result;
+    }
 
 }

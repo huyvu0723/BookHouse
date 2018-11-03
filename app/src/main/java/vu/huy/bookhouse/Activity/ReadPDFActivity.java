@@ -37,14 +37,17 @@ public class ReadPDFActivity extends AppCompatActivity implements OnPageChangeLi
         id = extras.getInt("Id");
         mark = extras.getInt("Mark");
         File pdfFile = new File(link);
-        pdfView.fromFile(pdfFile)
-                .enableAntialiasing(true)
-                .enableSwipe(true)
-                .swipeHorizontal(true)
-                .pageFling(true)
-                .onPageChange(this)
-                .defaultPage(mark)//tính cả số 0 nên sẽ ra page 6
-                .load();
+
+            pdfView.fromFile(pdfFile)
+                    .enableAntialiasing(true)
+                    .enableSwipe(true)
+                    .swipeHorizontal(true)
+                    .pageFling(true)
+                    .onPageChange(this)
+                    .defaultPage(mark)//tính cả số 0 nên sẽ ra page 6
+                    .load();
+
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package vu.huy.bookhouse.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.model.User;
 import vu.huy.bookhouse.utilities.AccountUtilities;
@@ -24,9 +26,18 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_INPUT = 2011;
     TextView errLogin;
     EditText txtUsername, txtPassword;
+    AccountUtilities accountUtilities;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String userIsLogn = getAccountLogin();
+        accountUtilities = new AccountUtilities();
+        if(userIsLogn != null) {
+            loginSucessful(userIsLogn);
+
+        }
+
         setContentView(R.layout.activity_main);
         errLogin = findViewById(R.id.errLogin);
         txtUsername = findViewById(R.id.txtUsername);
@@ -61,32 +72,54 @@ public class MainActivity extends AppCompatActivity {
 //            errLogin.setText("Username or Password is invalid!");
 //        }
         // TinLM 30/10/2018 Update login - login account with json
-        AccountUtilities accountUtilities = new AccountUtilities();
+
         String username = txtUsername.getText().toString();
         String passsword = txtPassword.getText().toString();
 
         boolean checkLogin = accountUtilities.checkLogin(username, passsword);
 
         if(checkLogin == true) {
-            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-            Date currentTime = Calendar.getInstance().getTime();
-            User user = accountUtilities.getUserDetail(username);
-            long diff = 0;
-            long vipAvaiable;
-            diff = user.getVIPEndDate().getTime() - currentTime.getTime();
-            if (diff <= 0) {
-                vipAvaiable = 0;
-            } else {
-                vipAvaiable = diff / (24 * 60 * 60 * 1000);
-            }
-            intent.putExtra("HeaderName", user.getUsername());
-            intent.putExtra("Balance", user.getBalance());
-            intent.putExtra("DayVIP", vipAvaiable);
-            intent.putExtra("FilterBook", 0);
-            intent.putExtra("SearchBook", "");
-            startActivity(intent);
+            loginSucessful(username);
         } else {
             errLogin.setText("Username or Password is invalid!");
         }
+    }
+
+    private void loginSucessful(String usernameLogin) {
+        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+        Date currentTime = Calendar.getInstance().getTime();
+        User user = accountUtilities.getUserDetail(usernameLogin);
+        long diff = 0;
+        long vipAvaiable;
+        saveAccountPrefer(user.getUsername(), user.getPasssword(), user.getUserID());
+
+        diff = user.getVIPEndDate().getTime() - currentTime.getTime();
+        if (diff <= 0) {
+            vipAvaiable = 0;
+        } else {
+            vipAvaiable = diff / (24 * 60 * 60 * 1000);
+        }
+        intent.putExtra("HeaderName", user.getUsername());
+        intent.putExtra("Balance", user.getBalance());
+        intent.putExtra("DayVIP", vipAvaiable);
+        intent.putExtra("FilterBook", 0);
+        intent.putExtra("SearchBook", "");
+        startActivity(intent);
+    }
+    //TinLM load save account is login
+    private void saveAccountPrefer(String username, String password, String userID) {
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(ConstainServer.USERNAME, username);
+        editor.putString(ConstainServer.PASSWORD, password);
+        editor.putString(ConstainServer.ACCOUNTID, userID);
+        editor.apply();
+    }
+    //TinLM load get account is login
+    private String getAccountLogin() {
+        String username;
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+        username = sharedPreferences.getString(ConstainServer.USERNAME,null);
+        return username;
     }
 }

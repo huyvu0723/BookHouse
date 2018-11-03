@@ -87,6 +87,9 @@ public class BookUtilities {
                 if(jsonObj.has(bookDescriptionfield)){
                     book.setBook_description(jsonObj.getString(bookDescriptionfield));
                 }
+                if(jsonObj.has(isVIPfield)){
+                    book.setVip(jsonObj.getBoolean(isVIPfield));
+                }
 
                 lstBook.add(book);
             }
@@ -237,6 +240,9 @@ public class BookUtilities {
                 }
                 if(jsonObj.has(bookDescriptionfield)){
                     lstBook.setBook_description(jsonObj.getString(bookDescriptionfield));
+                }
+                if(jsonObj.has(isVIPfield)){
+                    lstBook.setVip(jsonObj.getBoolean(isVIPfield));
                 }
 
 

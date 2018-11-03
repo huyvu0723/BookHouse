@@ -1,6 +1,8 @@
 package vu.huy.bookhouse.Fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.adapter.BookcaseRecyclerViewAdapter;
 import vu.huy.bookhouse.model.Book;
@@ -64,12 +67,19 @@ public class LibraryFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_bookcase, container, false);
         bookCaseManager = new DatabaseHelper(v.getContext());
         BookcaseUtilities utilities = new BookcaseUtilities();
-        List<Bookcase> arrayList = utilities.getBookcaseByDId(1);
+        List<Bookcase> arrayList = utilities.getBookcaseByDId(GetUsername(v));
         myr =  v.findViewById(R.id.recycleviewBookId);
         BookcaseRecyclerViewAdapter myAdapter = new BookcaseRecyclerViewAdapter( v.getContext() , arrayList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(v.getContext(),3);
         myr.setLayoutManager(layoutManager);
         myr.setAdapter(myAdapter);
         return v;
+    }
+
+    private int GetUsername(View view) {
+        int userId = 0;
+        SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        userId = Integer.parseInt(sharedPreferences.getString(ConstainServer.ACCOUNTID, "0"));
+        return userId;
     }
 }

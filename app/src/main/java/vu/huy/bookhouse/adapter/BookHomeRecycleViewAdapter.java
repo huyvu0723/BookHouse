@@ -59,6 +59,7 @@ public class BookHomeRecycleViewAdapter extends RecyclerView.Adapter<BookHomeRec
                 intent.putExtra("Description", book.getBook_description());
                 intent.putExtra("Link", book.getBook_link());
                 intent.putExtra("Image", book.getBook_img());
+                intent.putExtra("VipBook", book.isVip());
                 mContext.startActivity(intent);
 
             }

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -31,10 +32,16 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Calendar;
+import java.util.Date;
 
+import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.model.Book;
+import vu.huy.bookhouse.model.Bookcase;
 import vu.huy.bookhouse.model.DatabaseHelper;
+import vu.huy.bookhouse.model.User;
+import vu.huy.bookhouse.utilities.AccountUtilities;
 import vu.huy.bookhouse.utilities.BookcaseUtilities;
 
 public class BookDetailActivity extends AppCompatActivity {
@@ -46,6 +53,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private int STORAGE_PERMISSION_CODE = 1;
     Intent intent;
     private ProgressDialog mProgressDialog;
+    private TextView tvDownloadBook;
 
     DatabaseHelper bookCaseManager;
 
@@ -63,33 +71,80 @@ public class BookDetailActivity extends AppCompatActivity {
         descriptionBook = findViewById(R.id.txtDescriptionBook);
         viewBook = findViewById(R.id.txtViewBook);
         intent = getIntent();
-
         String name = getIntent().getStringExtra("Name");
         String author = getIntent().getStringExtra("Author");
         String description = getIntent().getStringExtra("Description");
         int view = 1000;
 
-
-            nameBook.setText(name);
-            authorBook.setText(author);
-            descriptionBook.setText(description);
-            viewBook.setText(view + "");
-
-
-
+        nameBook.setText(name);
+        authorBook.setText(author);
+        descriptionBook.setText(description);
+        viewBook.setText(view + "");
         //SQLite save
         bookCaseManager = new DatabaseHelper(this);
+        //TinLM check book is download
+        tvDownloadBook = findViewById(R.id.tvDownloadBook);
+        tvDownloadBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookcaseUtilities utilities = new BookcaseUtilities();
+                SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+                String accId =sharedPreferences.getString(ConstainServer.ACCOUNTID, "0");
+                boolean checkInBookcase = utilities.checkBookcase(accId, intent.getIntExtra("Id",0));
+                // check book in bookcase
+                if(checkInBookcase) {
+                    if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                        new DownloadFile().execute(intent.getStringExtra("Link"), intent.getStringExtra("Name") + ".pdf");
+
+                    } else {
+                        requestStoragePermission();
+                    }
+                } else {
+                    //check book is vip
+                    if(intent.getBooleanExtra("VipBook",false)) {
+                        // check date for vip acount
+                        Date currentTime = Calendar.getInstance().getTime();
+                        AccountUtilities accountUtilities = new AccountUtilities();
+                        SharedPreferences sharedPreferences1 = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+                        String usernameLogin = sharedPreferences.getString(ConstainServer.USERNAME, null);
+                        User user = accountUtilities.getUserDetail(usernameLogin);
+                        long diff = 0;
+                        long vipAvaiable;
+                        diff = user.getVIPEndDate().getTime() - currentTime.getTime();
+
+                        if(diff > 0) {
+                            if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                                new DownloadFile().execute(intent.getStringExtra("Link"), intent.getStringExtra("Name") + ".pdf");
+
+                            } else {
+                                requestStoragePermission();
+                            }
+                        } else {
+                            //show dialog làm cái này cho t nha huy
+                        }
+                    } else {
+                        if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                            new DownloadFile().execute(intent.getStringExtra("Link"), intent.getStringExtra("Name") + ".pdf");
+
+                        } else {
+                            requestStoragePermission();
+                        }
+                    }
+                }
+            }
+        });
+
+
     }
 
     public void clickToGetPDF(View view) {
-        if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
-            new DownloadFile().execute(intent.getStringExtra("Link"), intent.getStringExtra("Name") + ".pdf");
-
-        } else {
-            requestStoragePermission();
-        }
 
     }
 
@@ -168,7 +223,6 @@ public class BookDetailActivity extends AppCompatActivity {
             File folder = new File(Environment.getExternalStorageDirectory(), "BOOKHOUSE PDF"
             );
 
-
             //File folder = new File("/sdcard/Download", "PDF DOWNLOAD");
             folder.mkdir();
 
@@ -216,7 +270,7 @@ public class BookDetailActivity extends AppCompatActivity {
         }
         protected void addToDatabaseHelper(String nameLink){
             Book newBook = new Book(
-                    01,
+                    intent.getIntExtra("Id",0),
                     nameBook.getText().toString(),
                     authorBook.getText().toString(),
                     descriptionBook.getText().toString(),
@@ -229,6 +283,7 @@ public class BookDetailActivity extends AppCompatActivity {
             //TinLM 2/11/2018 post bookcase
             BookcaseUtilities utilities = new BookcaseUtilities();
 
+            boolean resultAdd = utilities.postBookcase( getAccId() ,getIntent().getIntExtra("Id",0));
 
         }
         protected void onProgressUpdate(String... progress) {
@@ -240,6 +295,13 @@ public class BookDetailActivity extends AppCompatActivity {
         protected void onPostExecute(String unused) {
             dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
 
+        }
+
+        // TinLM get id account from reference
+        private String getAccId() {
+            SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+            String accId = sharedPreferences.getString(ConstainServer.ACCOUNTID, "0");
+            return accId;
         }
     }
 }
