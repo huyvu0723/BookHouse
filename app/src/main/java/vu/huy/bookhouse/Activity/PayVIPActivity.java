@@ -16,7 +16,11 @@ public class PayVIPActivity extends AppCompatActivity {
     }
 
     public void clickToAddMoney(View view) {
+        Intent oldIntent = getIntent();
+        Bundle extras = oldIntent.getExtras();
+        String userId = extras.getString("UserID");
         Intent intent = new Intent(this, AddMoneyActivity.class);
+        intent.putExtra("UserID", userId);
         startActivity(intent);
     }
 }

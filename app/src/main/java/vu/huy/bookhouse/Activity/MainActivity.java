@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 vipAvaiable = diff / (24 * 60 * 60 * 1000);
             }
+            intent.putExtra("UserID", user.getUserID());
             intent.putExtra("HeaderName", user.getUsername());
             intent.putExtra("Balance", user.getBalance());
             intent.putExtra("DayVIP", vipAvaiable);
