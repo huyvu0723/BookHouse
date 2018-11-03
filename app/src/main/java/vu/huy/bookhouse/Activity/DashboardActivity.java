@@ -235,7 +235,11 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void clickToPayVIP(View view) {
+        Intent oldIntent = getIntent();
+        Bundle extras = oldIntent.getExtras();
+        String userId = extras.getString("UserID");
         Intent intent = new Intent(this, PayVIPActivity.class);
+        intent.putExtra("UserID", userId);
         startActivity(intent);
     }
 

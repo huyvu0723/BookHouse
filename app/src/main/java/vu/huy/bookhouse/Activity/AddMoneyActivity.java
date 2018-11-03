@@ -1,5 +1,6 @@
 package vu.huy.bookhouse.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -16,11 +17,13 @@ public class AddMoneyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_money);
         spinTypeCard = findViewById(R.id.spinTypeCard);
         spinValueCard = findViewById(R.id.spinValueCard);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
         String[] typeCard = new String[]{"MobiPhone", "Viettel", "Vinaphone"};
         String[] valueCard = new String[]{"10.000", "20.000", "50.000", "100.000", "200.000", "500.000"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, typeCard);
         spinTypeCard.setAdapter(adapter);
-
+        int userID = extras.getInt("UserID");
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, valueCard);
         spinValueCard.setAdapter(adapter);
 
