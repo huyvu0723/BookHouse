@@ -52,6 +52,7 @@ public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawer_home;
     TextView headerName;
     Bundle extras;
+    int positionCategoryAuthor;
 
     private ExpandableListView expandableListView;
     private ExpandableListAdapter listAdapter;
@@ -104,8 +105,14 @@ public class DashboardActivity extends AppCompatActivity {
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                List<Category> child = utilities.getChildCategory(listTitle.get(groupPosition).getCatId());
-                Category selectedCat = child.get(childPosition);
+                Category selectedCat = new Category();
+                if(groupPosition != positionCategoryAuthor) {
+                    List<Category> child = utilities.getChildCategory(listTitle.get(groupPosition).getCatId());
+                    selectedCat = child.get(childPosition);
+                }else{
+                    List<Category> lstAut = utilities.getAllAuthor();
+                    selectedCat = lstAut.get(childPosition);
+                }
                 drawer_home.closeDrawers();
                 Intent reload = getIntent();
                 reload.putExtra("FilterBook", selectedCat.getCatId());
@@ -131,6 +138,12 @@ public class DashboardActivity extends AppCompatActivity {
             List<Category> child = utilities.getChildCategory(listTitle.get(i).getCatId());
             listChild.put(listTitle.get(i), child);
         }
+        //Add author
+        Category author = new Category(0, "Author");
+        List<Category> lstAut = utilities.getAllAuthor();
+        listTitle.add(author);
+        listChild.put(author, lstAut);
+        positionCategoryAuthor = listChild.size() -1;
     }
     private void initView(){
         fragment_layout = findViewById(R.id.fragment_container);

@@ -30,6 +30,8 @@ public class BookUtilities {
     private static final String catNamefield = "catname";
     private static final String catParentfield = "catparent";
 
+    private static final String authorIDField = "autid";
+    private static final String authorNameField = "autname";
 
 
     public List<Book> getBookByDate(int filterID, String search){
@@ -44,7 +46,13 @@ public class BookUtilities {
             if(filterID > 0){
                 url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByCat?catID=" + filterID;
             }else {
-                url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByDate";
+                if(filterID < 0){
+                    //Chuyển id âm thành dương
+                    filterID = filterID - (filterID *2);
+                    url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBooksByAuthor?author=" + filterID;
+                }else {
+                    url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByDate";
+                }
             }
         }
         String respone = "";
@@ -123,6 +131,39 @@ public class BookUtilities {
             e.printStackTrace();
         }
         return lstCatParent;
+    }
+    public List<Category> getAllAuthor(){
+        List<Category> lstAuthor =  null;
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetAllAuthor";
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = ReadStream.readStream(urll.openStream());
+
+            lstAuthor = new ArrayList<>();
+            JSONArray arr = new JSONArray(respone);
+
+            for (int i = 0; i < arr.length(); i++)
+            {
+                JSONObject jsonObj = arr.getJSONObject(i);
+                Category author = new Category();
+                if(jsonObj.has(authorIDField)){
+                    //Đổi id sang số âm để tránh trùng với kiếm theo category
+                    author.setCatId(jsonObj.getInt(authorIDField) - (jsonObj.getInt(authorIDField) * 2));
+                }
+                if(jsonObj.has(authorNameField)){
+                    author.setCatName(jsonObj.getString(authorNameField));
+                }
+                    lstAuthor.add(author);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return lstAuthor;
     }
     public List<Category> getChildCategory(int catParentID){
         List<Category> lstCatChild =  null;
