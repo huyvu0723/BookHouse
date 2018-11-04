@@ -28,6 +28,8 @@ public class AccountFragment extends Fragment {
             headerName.setText(extras.getString("HeaderName"));
             balance.setText(extras.getInt("Balance") + "");
             dayVIP.setText(extras.getLong("DayVIP") + "");
+
+
         return view;
     }
 }

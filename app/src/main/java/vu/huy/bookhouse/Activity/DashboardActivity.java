@@ -3,6 +3,7 @@ package vu.huy.bookhouse.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.Fragment.AccountFragment;
 import vu.huy.bookhouse.Fragment.HomeFragment;
@@ -151,6 +153,16 @@ public class DashboardActivity extends AppCompatActivity {
 
             }
         });
+
+        // TinLM choose bookcase layout when is delete
+        Intent checkDelete = getIntent();
+        int isDelete = checkDelete.getIntExtra("IsDelete",0);
+        if (isDelete == 1) {
+            drawer_home.closeDrawers();
+            bottomNavigationView.setSelectedItemId(R.id.nav_library);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,bookcaseFrag).commit();
+        }
+
     }
     private void initdataCategory(){
         listTitle = new ArrayList<>();
@@ -243,6 +255,15 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void clickToLogout(View view) {
+        logoutAccount();
         this.finish();
+    }
+
+    // TinLM 4/11/2018 logout account
+    public void logoutAccount() {
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 }

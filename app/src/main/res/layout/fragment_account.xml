@@ -78,8 +78,34 @@
                 android:text="Get VIP"
                 android:onClick="clickToPayVIP"/>
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginRight="80dp"
+            app:cardBackgroundColor="@color/colorDanger"
+            app:cardCornerRadius="20dp">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:onClick="clickToLogout"
+                    android:text="LogOut"
+                    android:textColor="@color/colorMain"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -94,8 +120,9 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:onClick="clickToLogout"
@@ -105,4 +132,7 @@
                 android:textStyle="bold" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+
+
 </LinearLayout>

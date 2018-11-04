@@ -12,11 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 
 import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.Fragment.LibraryFragment;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.model.DatabaseHelper;
+import vu.huy.bookhouse.model.User;
+import vu.huy.bookhouse.utilities.AccountUtilities;
 import vu.huy.bookhouse.utilities.BookUtilities;
 import vu.huy.bookhouse.utilities.BookcaseUtilities;
 
@@ -76,12 +80,35 @@ public class BookCaseDetailActivity extends AppCompatActivity {
         String userId =sharedPreferences.getString(ConstainServer.ACCOUNTID, "0");
         int accId = Integer.parseInt(userId);
         utilities.deleteBook(accId, id);
-        Fragment bookcaseFrag = new LibraryFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, bookcaseFrag);
-        transaction.commit();
 
-        finish();
+//        Fragment bookcaseFrag = new LibraryFragment();
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.fragment_container, bookcaseFrag);
+//        transaction.commit();
+//        finish();
+
+        // Dashboard :3
+        AccountUtilities accountUtilities = new AccountUtilities();
+        Intent intent = new Intent(BookCaseDetailActivity.this, DashboardActivity.class);
+        Date currentTime = Calendar.getInstance().getTime();
+        String usernameLogin =sharedPreferences.getString(ConstainServer.USERNAME, null);
+        User user = accountUtilities.getUserDetail(usernameLogin);
+        long diff = 0;
+        long vipAvaiable;
+
+        diff = user.getVIPEndDate().getTime() - currentTime.getTime();
+        if (diff <= 0) {
+            vipAvaiable = 0;
+        } else {
+            vipAvaiable = diff / (24 * 60 * 60 * 1000);
+        }
+        intent.putExtra("HeaderName", user.getUsername());
+        intent.putExtra("Balance", user.getBalance());
+        intent.putExtra("DayVIP", vipAvaiable);
+        intent.putExtra("FilterBook", 0);
+        intent.putExtra("SearchBook", "");
+        intent.putExtra("IsDelete", 1);
+        startActivity(intent);
 
     }
 }
