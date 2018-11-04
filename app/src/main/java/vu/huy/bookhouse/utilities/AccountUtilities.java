@@ -101,6 +101,25 @@ public class AccountUtilities {
         }
         return result;
     }
+    public boolean chargeMoney(int accId, double amount){
+        boolean result = false;
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "Charge?ID=" + accId + "&amount=" + amount;
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = readStream(urll.openStream());
+            if(respone.contains("true")){
+                result = true;
+            }
+        }catch (Exception e){
+            Log.e("ErrorAddUser", e.getMessage());
+            return result;
+        }
+        return result;
+    }
 
 }
