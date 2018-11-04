@@ -181,12 +181,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     //Chạy khi ấn bên ngoài tab để đóng menu
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        fragment_layout.bringToFront();
-        drawer_home.closeDrawers();
-        return super.dispatchTouchEvent(ev);
-    }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        fragment_layout.bringToFront();
+//        drawer_home.closeDrawers();
+//        return super.dispatchTouchEvent(ev);
+//    }
 
     //mở các fragment
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -230,7 +230,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void clickToGetBookDetail(View view) {
         Intent intent = new Intent(this, BookDetailActivity.class);
-        intent.putExtra("IdBook", "01");
         startActivity(intent);
     }
 

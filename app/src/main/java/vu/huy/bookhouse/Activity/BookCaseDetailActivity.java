@@ -1,7 +1,10 @@
 package vu.huy.bookhouse.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Environment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +13,12 @@ import android.widget.TextView;
 
 import java.io.File;
 
+import vu.huy.bookhouse.Constant.ConstainServer;
+import vu.huy.bookhouse.Fragment.LibraryFragment;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.model.DatabaseHelper;
+import vu.huy.bookhouse.utilities.BookUtilities;
+import vu.huy.bookhouse.utilities.BookcaseUtilities;
 
 public class BookCaseDetailActivity extends AppCompatActivity {
 
@@ -22,10 +29,12 @@ public class BookCaseDetailActivity extends AppCompatActivity {
     Intent intent;
     Bundle extras;
     DatabaseHelper bookCaseManager;
+    BookcaseUtilities utilities;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_case_detail);
+        utilities = new BookcaseUtilities();
         setData();
     }
 
@@ -56,4 +65,23 @@ public class BookCaseDetailActivity extends AppCompatActivity {
     }
 
 
+    public void clickToDeleteBook(View view) {
+        //Delete in sqlite
+        bookCaseManager.deleteBook(id);
+        //Delete in sdcard
+        File file = new File(link);
+        file.delete();
+        //Delete in server
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+        String userId =sharedPreferences.getString(ConstainServer.ACCOUNTID, "0");
+        int accId = Integer.parseInt(userId);
+        utilities.deleteBook(accId, id);
+        Fragment bookcaseFrag = new LibraryFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, bookcaseFrag);
+        transaction.commit();
+
+        finish();
+
+    }
 }

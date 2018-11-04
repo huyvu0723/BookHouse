@@ -117,5 +117,22 @@ public class BookcaseUtilities {
         }
         return result;
     }
+    public void deleteBook(int accId, int bookId){
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url;
+
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "deleteBookInBookcase?accId=" + accId+"&bookId=" + bookId;
+
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = ReadStream.readStream(urll.openStream());
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
