@@ -68,7 +68,7 @@ public class AccountUtilities {
             String name = jsonObj.getString(userNamefield);
             String pass = jsonObj.getString(userPasswordfield);
             String fullname = jsonObj.getString(userFullnamefield);
-            double balance = jsonObj.getDouble(userBalancefield);
+            float balance = (float) jsonObj.getDouble(userBalancefield);
             Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObj.getString(userVIPDatefield));
 
             result = new User(userID, name, pass, fullname, balance, endDate);
@@ -119,6 +119,27 @@ public class AccountUtilities {
             Log.e("ErrorAddUser", e.getMessage());
             return result;
         }
+        return result;
+    }
+
+    public boolean buyPack(String userID, String packID, int day, double amount){
+        boolean result = false;
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "BuyPack?userID=" + userID + "&packID=" + packID + "&day=" + day + "&amount=" + amount;
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = readStream(urll.openStream());
+            if(respone.contains("true")){
+                result = true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return result;
     }
 

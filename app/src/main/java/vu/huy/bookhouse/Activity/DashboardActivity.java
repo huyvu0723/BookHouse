@@ -172,6 +172,13 @@ public class DashboardActivity extends AppCompatActivity {
             bottomNavigationView.setSelectedItemId(R.id.nav_library);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,bookcaseFrag).commit();
         }
+        int addMoney = checkDelete.getIntExtra("AddMoney",0);
+        if (addMoney == 1) {
+            drawer_home.closeDrawers();
+            bottomNavigationView.setSelectedItemId(R.id.nav_account);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,accountFrag).commit();
+        }
+
 
     }
     private void initdataCategory(){

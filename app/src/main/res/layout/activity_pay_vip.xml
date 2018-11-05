@@ -33,13 +33,14 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/list_packVip"
+    <!--<ListView-->
+        <!--android:id="@+id/list_packVip"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorPrimary">-->
+    <!--</ListView>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleViewPackVip"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-
-        >
-
-    </ListView>
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

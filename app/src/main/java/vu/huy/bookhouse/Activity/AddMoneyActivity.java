@@ -10,8 +10,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.R;
+import vu.huy.bookhouse.model.User;
 import vu.huy.bookhouse.utilities.AccountUtilities;
 
 public class AddMoneyActivity extends AppCompatActivity {
@@ -50,6 +54,44 @@ public class AddMoneyActivity extends AppCompatActivity {
             String value = spinValueCard.getSelectedItem().toString();
             double amount = Double.parseDouble(value);
             utilities.chargeMoney(accId, amount);
+            float balance = sharedPreferences.getFloat(ConstainServer.BALANCE, 0);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putFloat(ConstainServer.BALANCE, (balance + (float) amount));
+            editor.apply();
+
+            //
+
+            // Dashboard :3
+            AccountUtilities accountUtilities = new AccountUtilities();
+            Intent intent = new Intent(AddMoneyActivity.this, DashboardActivity.class);
+            Date currentTime = Calendar.getInstance().getTime();
+            String usernameLogin =sharedPreferences.getString(ConstainServer.USERNAME, null);
+            User user = accountUtilities.getUserDetail(usernameLogin);
+
+            long diff = 0;
+            long vipAvaiable;
+
+            diff = user.getVIPEndDate().getTime() - currentTime.getTime();
+            if (diff <= 0) {
+                vipAvaiable = 0;
+            } else {
+                vipAvaiable = diff / (24 * 60 * 60 * 1000);
+            }
+            intent.putExtra("HeaderName", user.getUsername());
+            intent.putExtra("DayVIP", vipAvaiable);
+            intent.putExtra("FilterBook", 0);
+            intent.putExtra("SearchBook", "");
+            intent.putExtra("GetBalance", 1);
+            intent.putExtra("AddMoney", 1);
+            startActivity(intent);
+
+
+
+
+            //
+
             finish();
         }else{
             errCharge.setText("Code or serial is invalid. Please try agains");

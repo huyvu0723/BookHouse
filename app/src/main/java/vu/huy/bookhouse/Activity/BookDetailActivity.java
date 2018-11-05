@@ -66,6 +66,7 @@ public class BookDetailActivity extends AppCompatActivity {
         ContextWrapper contextWrapper = new ContextWrapper(
                 getApplicationContext());
         directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
+
         nameBook = findViewById(R.id.txtNameBook);
         authorBook = findViewById(R.id.txtAuthorBook);
         descriptionBook = findViewById(R.id.txtDescriptionBook);
@@ -80,10 +81,17 @@ public class BookDetailActivity extends AppCompatActivity {
         authorBook.setText(author);
         descriptionBook.setText(description);
         viewBook.setText(view + "");
-        //SQLite save
+
+        //TinLM change text download
+        tvDownloadBook = findViewById(R.id.tvDownloadBook);
+        if(intent.getBooleanExtra("VipBook",false)) {
+            tvDownloadBook.setText("Book is vip");
+        }
+
+            //SQLite save
         bookCaseManager = new DatabaseHelper(this);
         //TinLM check book is download
-        tvDownloadBook = findViewById(R.id.tvDownloadBook);
+
         tvDownloadBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +101,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 boolean checkInBookcase = utilities.checkBookcase(accId, intent.getIntExtra("Id",0));
                 // check book in bookcase
                 if(checkInBookcase) {
+
                     if (ContextCompat.checkSelfPermission(BookDetailActivity.this,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
@@ -104,6 +113,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 } else {
                     //check book is vip
                     if(intent.getBooleanExtra("VipBook",false)) {
+
                         // check date for vip acount
                         Date currentTime = Calendar.getInstance().getTime();
                         AccountUtilities accountUtilities = new AccountUtilities();
@@ -124,7 +134,7 @@ public class BookDetailActivity extends AppCompatActivity {
                                 requestStoragePermission();
                             }
                         } else {
-                            //show dialog làm cái này cho t nha huy
+                            Toast.makeText(getApplicationContext(), "Bạn chưa có vip", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         if (ContextCompat.checkSelfPermission(BookDetailActivity.this,

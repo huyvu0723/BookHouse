@@ -8,13 +8,13 @@ public class User {
     private String username = "";
     private String passsword = "";
     private String fullname = "";
-    private double balance = 0;
+    private float balance = 0;
     private Date VIPEndDate;
 
     public User() {
     }
 
-    public User(String userID, String username, String passsword, String fullname, double balance, Date VIPEndDate) {
+    public User(String userID, String username, String passsword, String fullname, float balance, Date VIPEndDate) {
         this.userID = userID;
         this.username = username;
         this.passsword = passsword;
@@ -55,11 +55,11 @@ public class User {
         this.fullname = fullname;
     }
 
-    public double getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 

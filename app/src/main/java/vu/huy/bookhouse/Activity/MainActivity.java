@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         User user = accountUtilities.getUserDetail(usernameLogin);
         long diff = 0;
         long vipAvaiable;
-        saveAccountPrefer(user.getUsername(), user.getPasssword(), user.getUserID());
+        saveAccountPrefer(user.getUsername(), user.getPasssword(), user.getUserID(), user.getBalance());
 
         diff = user.getVIPEndDate().getTime() - currentTime.getTime();
         if (diff <= 0) {
@@ -100,19 +100,19 @@ public class MainActivity extends AppCompatActivity {
             vipAvaiable = diff / (24 * 60 * 60 * 1000);
         }
         intent.putExtra("HeaderName", user.getUsername());
-        intent.putExtra("Balance", user.getBalance());
         intent.putExtra("DayVIP", vipAvaiable);
         intent.putExtra("FilterBook", 0);
         intent.putExtra("SearchBook", "");
         startActivity(intent);
     }
     //TinLM load save account is login
-    private void saveAccountPrefer(String username, String password, String userID) {
+    private void saveAccountPrefer(String username, String password, String userID, float balance) {
         SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(ConstainServer.USERNAME, username);
         editor.putString(ConstainServer.PASSWORD, password);
         editor.putString(ConstainServer.ACCOUNTID, userID);
+        editor.putFloat(ConstainServer.BALANCE, balance);
         editor.apply();
     }
     //TinLM load get account is login

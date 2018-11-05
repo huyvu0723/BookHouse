@@ -93,6 +93,7 @@ public class BookCaseDetailActivity extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
         String usernameLogin =sharedPreferences.getString(ConstainServer.USERNAME, null);
         User user = accountUtilities.getUserDetail(usernameLogin);
+
         long diff = 0;
         long vipAvaiable;
 
@@ -103,7 +104,6 @@ public class BookCaseDetailActivity extends AppCompatActivity {
             vipAvaiable = diff / (24 * 60 * 60 * 1000);
         }
         intent.putExtra("HeaderName", user.getUsername());
-        intent.putExtra("Balance", user.getBalance());
         intent.putExtra("DayVIP", vipAvaiable);
         intent.putExtra("FilterBook", 0);
         intent.putExtra("SearchBook", "");
