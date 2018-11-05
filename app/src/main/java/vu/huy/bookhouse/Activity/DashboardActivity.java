@@ -62,6 +62,7 @@ public class DashboardActivity extends AppCompatActivity {
     private List<Category> listTitle;
     private HashMap<Category, List<Category>> listChild;
     BookUtilities utilities;
+    private int lastExpandedPosition = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,11 +126,20 @@ public class DashboardActivity extends AppCompatActivity {
                 homeFrag.setArguments(extras);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFrag).commit();
 
-        bottomNavigationView.bringToFront();
-        fragment_layout.bringToFront();
-//                finish();
-//                startActivity(reload);
+                bottomNavigationView.bringToFront();
+                fragment_layout.bringToFront();
                 return true;
+            }
+        });
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1
+                        && groupPosition != lastExpandedPosition) {
+                    expandableListView.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = groupPosition;
             }
         });
         drawer_home.setDrawerListener(new DrawerLayout.DrawerListener() {
