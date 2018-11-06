@@ -49,7 +49,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private static final int  MEGABYTE = 1024 * 1024;
     private String filepath = "BookCase";
     File myInternalFile, directory;
-    TextView nameBook, authorBook, descriptionBook, viewBook;
+    TextView nameBook, authorBook, descriptionBook, viewBook, txtRateBook;
     private int STORAGE_PERMISSION_CODE = 1;
     Intent intent;
     private ProgressDialog mProgressDialog;
@@ -75,18 +75,24 @@ public class BookDetailActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("Name");
         String author = getIntent().getStringExtra("Author");
         String description = getIntent().getStringExtra("Description");
-        int view = 1000;
+        //int view = 1000;
 
         nameBook.setText(name);
         authorBook.setText(author);
         descriptionBook.setText(description);
-        viewBook.setText(view + "");
+        //viewBook.setText(view + "");
 
         //TinLM change text download
         tvDownloadBook = findViewById(R.id.tvDownloadBook);
         if(intent.getBooleanExtra("VipBook",false)) {
             tvDownloadBook.setText("Book is vip");
         }
+
+        // TinLM rating and count number
+        viewBook.setText(intent.getIntExtra("Count",0) + "");
+        txtRateBook = findViewById(R.id.txtRateBook);
+        txtRateBook.setText(intent.getDoubleExtra("Rate",0) + "");
+
 
             //SQLite save
         bookCaseManager = new DatabaseHelper(this);

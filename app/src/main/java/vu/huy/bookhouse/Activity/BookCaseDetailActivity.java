@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.Calendar;
@@ -34,12 +36,40 @@ public class BookCaseDetailActivity extends AppCompatActivity {
     Bundle extras;
     DatabaseHelper bookCaseManager;
     BookcaseUtilities utilities;
+
+    // TinLM setting rating
+    RatingBar ratingBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_case_detail);
         utilities = new BookcaseUtilities();
         setData();
+        setEvents();
+    }
+
+    private void setEvents() {
+        float asdf = ratingBar.getRating();
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                BookcaseUtilities bookcaseUtilities = new BookcaseUtilities();
+                SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+                String useId = sharedPreferences.getString(ConstainServer.ACCOUNTID, null);
+                boolean resultRate = bookcaseUtilities.rateBook(useId, String.valueOf(id), (int) rating);
+
+                if( !resultRate ) {
+                    bookcaseUtilities.insertRateBook(useId, String.valueOf(id), (int) rating);
+
+                }
+                Toast.makeText(getApplicationContext(), "Đánh giá thành công", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
     private void setData() {
@@ -47,6 +77,11 @@ public class BookCaseDetailActivity extends AppCompatActivity {
         author = findViewById(R.id.txtAuthorBookInCase);
         description = findViewById(R.id.txtDescriptionBookInCase);
         imgBookcaseId = findViewById(R.id.imgBookcaseId);
+
+        // TinLM setting rating
+        ratingBar = findViewById(R.id.ratingBar);
+
+
         bookCaseManager = new DatabaseHelper(this);
         intent = getIntent();
         extras = intent.getExtras();

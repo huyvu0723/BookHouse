@@ -27,6 +27,7 @@ public class BookcaseUtilities {
     private static final String bookLinkfield = "booklink";
     private static final String bookNamefield = "bookname";
     private static final String ratefield = "rate";
+    private static final String countfield = "countnum";
     private static final String bookDescription = "bookdescription";
 
     public boolean postBookcase(String accId, int bookId) {
@@ -135,4 +136,83 @@ public class BookcaseUtilities {
             e.printStackTrace();
         }
     }
+
+    public boolean rateBook(String userID, String bookID, int rate){
+        boolean result = false;
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "RateBook?userID=" + userID +"&bookID=" + bookID +"&rate=" + rate;
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = readStream(urll.openStream());
+            if(respone.contains("true")){
+                result = true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
+    public boolean insertRateBook(String userID, String bookID, int rate){
+        boolean result = false;
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "InsertRateBook?userID=" + userID +"&bookID=" + bookID +"&rate=" + rate;
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = readStream(urll.openStream());
+            if(respone.contains("true")){
+                result = true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public Bookcase getBookcaseRate(int bookId){
+        Bookcase lstBook = null;
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url;
+
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "GetBookcaseRate?id=" + bookId;
+
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = ReadStream.readStream(urll.openStream());
+
+
+            JSONArray arr = new JSONArray(respone);
+
+
+                JSONObject jsonObj = arr.getJSONObject(0);
+
+            lstBook = new Bookcase();
+                if(jsonObj.has(ratefield)){
+                    lstBook.setRate(jsonObj.getDouble(ratefield));
+                }
+                if(jsonObj.has(countfield)){
+                    lstBook.setCountDownload(jsonObj.getInt(countfield));
+                }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return lstBook;
+    }
+
 }

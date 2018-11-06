@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     TextView errLogin;
     EditText txtUsername, txtPassword;
     AccountUtilities accountUtilities;
+    long vipAvaiable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
         User user = accountUtilities.getUserDetail(usernameLogin);
         long diff = 0;
-        long vipAvaiable;
         saveAccountPrefer(user.getUsername(), user.getPasssword(), user.getUserID(), user.getBalance());
 
         diff = user.getVIPEndDate().getTime() - currentTime.getTime();
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             vipAvaiable = diff / (24 * 60 * 60 * 1000);
         }
         intent.putExtra("HeaderName", user.getUsername());
-        intent.putExtra("DayVIP", vipAvaiable);
+        //intent.putExtra("DayVIP", vipAvaiable);
         intent.putExtra("FilterBook", 0);
         intent.putExtra("SearchBook", "");
         startActivity(intent);
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(ConstainServer.PASSWORD, password);
         editor.putString(ConstainServer.ACCOUNTID, userID);
         editor.putFloat(ConstainServer.BALANCE, balance);
+        editor.putLong(ConstainServer.VIPDATE, vipAvaiable);
         editor.apply();
     }
     //TinLM load get account is login

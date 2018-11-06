@@ -33,9 +33,10 @@ public class AccountFragment extends Fragment {
             //TinLM 5/11/2018 Update get money
         SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, Context.MODE_PRIVATE);
         float balanceAccount = sharedPreferences.getFloat(ConstainServer.BALANCE, 0);
+        long vipDate = sharedPreferences.getLong(ConstainServer.VIPDATE, 0);
 
             balance.setText(balanceAccount + "");
-            dayVIP.setText(extras.getLong("DayVIP") + "");
+            dayVIP.setText(vipDate + "");
 
 
         return view;

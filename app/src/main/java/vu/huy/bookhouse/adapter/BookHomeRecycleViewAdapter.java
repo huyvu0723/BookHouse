@@ -19,7 +19,9 @@ import vu.huy.bookhouse.Activity.BookCaseDetailActivity;
 import vu.huy.bookhouse.Activity.BookDetailActivity;
 import vu.huy.bookhouse.R;
 import vu.huy.bookhouse.model.Book;
+import vu.huy.bookhouse.model.Bookcase;
 import vu.huy.bookhouse.utilities.BookUtilities;
+import vu.huy.bookhouse.utilities.BookcaseUtilities;
 
 public class BookHomeRecycleViewAdapter extends RecyclerView.Adapter<BookHomeRecycleViewAdapter.MyViewHolder> {
 
@@ -60,6 +62,12 @@ public class BookHomeRecycleViewAdapter extends RecyclerView.Adapter<BookHomeRec
                 intent.putExtra("Link", book.getBook_link());
                 intent.putExtra("Image", book.getBook_img());
                 intent.putExtra("VipBook", book.isVip());
+
+                BookcaseUtilities utilities = new BookcaseUtilities();
+                Bookcase resultRate = utilities.getBookcaseRate(book.getBook_id());
+                intent.putExtra("Rate", resultRate.getRate());
+                intent.putExtra("Count", resultRate.getCountDownload());
+
                 mContext.startActivity(intent);
 
             }

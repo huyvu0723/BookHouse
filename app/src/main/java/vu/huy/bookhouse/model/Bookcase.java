@@ -10,6 +10,7 @@ public class Bookcase {
     private String name;
     private double rate;
     private String bookDescription;
+    private int countDownload;
 
     public Bookcase() {
     }
@@ -20,6 +21,14 @@ public class Bookcase {
 
     public void setBookDescription(String bookDescription) {
         this.bookDescription = bookDescription;
+    }
+
+    public int getCountDownload() {
+        return countDownload;
+    }
+
+    public void setCountDownload(int countDownload) {
+        this.countDownload = countDownload;
     }
 
     public int getAccId() {

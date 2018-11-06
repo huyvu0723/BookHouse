@@ -55,6 +55,7 @@
 
             android:textColor="@color/colorPrimary"
             android:text="Author: " />
+
         <TextView
             android:id="@+id/txtAuthorBookInCase"
             android:paddingLeft="15dp"
@@ -64,6 +65,12 @@
             android:textStyle="bold"
             android:text="Tín" />
     </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,6 +94,7 @@
             android:layout_height="wrap_content"
             android:textSize="28dp"
             android:textStyle="bold"
+            android:singleLine="true"
             android:text="Đây là quyển sách tín viết ra nhằm đi truyền đạo" />
     </LinearLayout>
 

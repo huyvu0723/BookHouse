@@ -13,4 +13,5 @@ public class ConstainServer {
     public static final String PASSWORD = "password";
     public static final String ACCOUNTID = "account_id";
     public static final String BALANCE = "balance";
+    public static final String VIPDATE = "vipdate";
 }

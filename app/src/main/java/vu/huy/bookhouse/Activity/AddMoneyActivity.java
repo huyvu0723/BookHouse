@@ -59,7 +59,7 @@ public class AddMoneyActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             editor.putFloat(ConstainServer.BALANCE, (balance + (float) amount));
-            editor.apply();
+
 
             //
 
@@ -78,7 +78,10 @@ public class AddMoneyActivity extends AppCompatActivity {
                 vipAvaiable = 0;
             } else {
                 vipAvaiable = diff / (24 * 60 * 60 * 1000);
+                vipAvaiable += 1;
             }
+            editor.putLong(ConstainServer.VIPDATE, vipAvaiable);
+            editor.apply();
             intent.putExtra("HeaderName", user.getUsername());
             intent.putExtra("DayVIP", vipAvaiable);
             intent.putExtra("FilterBook", 0);

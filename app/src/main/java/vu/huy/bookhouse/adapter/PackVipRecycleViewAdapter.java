@@ -75,7 +75,7 @@ public class PackVipRecycleViewAdapter extends RecyclerView.Adapter<PackVipRecyc
                     float balance = sharedPreferences.getFloat(ConstainServer.BALANCE, 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putFloat(ConstainServer.BALANCE, (balance - (float) mData.get(position).getPackCost()));
-                    editor.apply();
+
 
                     long diff = 0;
                     long vipAvaiable;
@@ -85,9 +85,13 @@ public class PackVipRecycleViewAdapter extends RecyclerView.Adapter<PackVipRecyc
                         vipAvaiable = 0;
                     } else {
                         vipAvaiable = diff / (24 * 60 * 60 * 1000);
+                        vipAvaiable += 1;
                     }
+                    editor.putLong(ConstainServer.VIPDATE, vipAvaiable);
+                    editor.apply();
+
                     intent.putExtra("HeaderName", user.getUsername());
-                    intent.putExtra("DayVIP", vipAvaiable);
+                    //intent.putExtra("DayVIP", vipAvaiable);
                     intent.putExtra("FilterBook", 0);
                     intent.putExtra("SearchBook", "");
                     intent.putExtra("GetBalance", 1);
