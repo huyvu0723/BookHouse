@@ -8,9 +8,9 @@
         android:id="@+id/list_Cate_Title"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"/>
+        android:textSize="20dp"
+        android:textColor="@color/colorSuperGrey"/>
 </LinearLayout>

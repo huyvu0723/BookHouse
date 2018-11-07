@@ -8,6 +8,8 @@
     tools:context=".Activity.PayVIPActivity">
 
     <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,25 +22,23 @@
             android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:text="VIP Packs"
+            android:textColor="@color/colorSuperGrey"
             android:textSize="30dp"
             android:textStyle="bold" />
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_money"
+            android:text="Charge"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:drawableRight="@drawable/ic_money"
             android:onClick="clickToAddMoney"/>
 
     </RelativeLayout>
-
-    <!--<ListView-->
-        <!--android:id="@+id/list_packVip"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/colorPrimary">-->
-    <!--</ListView>-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleViewPackVip"
         android:layout_width="match_parent"
