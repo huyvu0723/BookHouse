@@ -90,13 +90,21 @@ public class BookCaseDetailActivity extends AppCompatActivity {
         description.setText(extras.getString("Description"));
         link = extras.getString("Link");
         id = extras.getInt("Id");
-//        mark = extras.getInt("Mark");
+        //TinLM 7/11/2018
+        //mark = extras.getInt("Mark");
+
     }
 
     public void clickToOpenPDF(View view) {
 
         Intent intent = new Intent(this, ReadPDFActivity.class);
-        mark = bookCaseManager.getMarkBook(id);
+        //mark = bookCaseManager.getMarkBook(id);
+        // TinLM
+        BookcaseUtilities bookcaseUtilities = new BookcaseUtilities();
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+        int accId = Integer.parseInt(sharedPreferences.getString(ConstainServer.ACCOUNTID, "0"));
+        mark = bookcaseUtilities.getMark(accId, id);
+
         intent.putExtra("Mark", mark);
         intent.putExtra("Link", link);
         intent.putExtra("Id", id);

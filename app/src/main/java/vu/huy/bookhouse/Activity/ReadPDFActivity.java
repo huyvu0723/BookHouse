@@ -1,10 +1,12 @@
 package vu.huy.bookhouse.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
@@ -12,8 +14,11 @@ import com.github.barteksc.pdfviewer.util.FitPolicy;
 
 import java.io.File;
 
+import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.R;
+import vu.huy.bookhouse.model.Bookcase;
 import vu.huy.bookhouse.model.DatabaseHelper;
+import vu.huy.bookhouse.utilities.BookcaseUtilities;
 
 public class ReadPDFActivity extends AppCompatActivity implements OnPageChangeListener {
 
@@ -54,7 +59,17 @@ public class ReadPDFActivity extends AppCompatActivity implements OnPageChangeLi
     public void onPageChanged(int page, int pageCount) {
          pagePDF.setText("Page " + (page + 1) + "/ " + pageCount);
          bookCaseManager.updateMarkBook(id, page);
+        mark = page;
         //do what you want with the pageNumber
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        BookcaseUtilities bookcaseUtilities = new BookcaseUtilities();
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+        int accId  = Integer.parseInt(sharedPreferences.getString(ConstainServer.ACCOUNTID, "0"));
+        bookcaseUtilities.updateBookMark(accId, id, mark);
+
+    }
 }

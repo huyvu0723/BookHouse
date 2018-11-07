@@ -44,6 +44,8 @@ public class PayVIPActivity extends AppCompatActivity {
         String userId = extras.getString("UserID");
         Intent intent = new Intent(this, AddMoneyActivity.class);
         intent.putExtra("UserID", userId);
+
         startActivity(intent);
+
     }
 }

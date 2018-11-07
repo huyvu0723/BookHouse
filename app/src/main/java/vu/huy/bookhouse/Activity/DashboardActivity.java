@@ -273,7 +273,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void clickToLogout(View view) {
         logoutAccount();
-        this.finish();
+        finish();
     }
 
     // TinLM 4/11/2018 logout account
@@ -282,5 +282,9 @@ public class DashboardActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

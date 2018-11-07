@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
         User user = accountUtilities.getUserDetail(usernameLogin);
         long diff = 0;
-        saveAccountPrefer(user.getUsername(), user.getPasssword(), user.getUserID(), user.getBalance());
+
 
         diff = user.getVIPEndDate().getTime() - currentTime.getTime();
         if (diff <= 0) {
@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             vipAvaiable = diff / (24 * 60 * 60 * 1000);
         }
+        saveAccountPrefer(user.getUsername(), user.getPasssword(), user.getUserID(), user.getBalance());
         intent.putExtra("HeaderName", user.getUsername());
         //intent.putExtra("DayVIP", vipAvaiable);
         intent.putExtra("FilterBook", 0);

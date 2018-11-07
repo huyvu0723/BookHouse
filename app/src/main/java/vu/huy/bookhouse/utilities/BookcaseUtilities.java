@@ -217,4 +217,47 @@ public class BookcaseUtilities {
         return lstBook;
     }
 
+    public void updateBookMark(int accId, int bookId, int mark){
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url;
+
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "UpdateBookMar?mark=" + mark +  "&accId="+ accId+"&bookId=" + bookId;
+
+        String respone = "";
+
+        try {
+            URL urll = new URL(url);
+            respone = ReadStream.readStream(urll.openStream());
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public int getMark(int accId, int bookId) {
+        int mark = 0;
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String url;
+
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "GetMark?accId="+ accId+"&bookId=" + bookId;
+
+        String respone = "";
+        try {
+            URL urll = new URL(url);
+            respone = ReadStream.readStream(urll.openStream());
+            JSONArray arr = new JSONArray(respone);
+            JSONObject jsonObj = arr.getJSONObject(0);
+            if(jsonObj.has("bookmark")) {
+                mark = jsonObj.getInt("bookmark");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mark;
+    }
+
 }

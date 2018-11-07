@@ -8,173 +8,184 @@
     android:background="@color/colorMain"
     tools:context=".Activity.BookDetailActivity">
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/bookhouse" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Details"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        android:paddingLeft="10dp"
-        android:textColor="@color/colorGreenForest"/>
-
-    <View
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp">
-
-
-        <TextView
-            android:paddingLeft="15dp"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:textColor="@color/colorSuperGrey"
-            android:text="Book: " />
-        <TextView
-            android:id="@+id/txtNameBook"
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            android:text="Example" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp">
-        <TextView
-            android:paddingLeft="15dp"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-
-            android:textColor="@color/colorSuperGrey"
-            android:text="Author: " />
-        <TextView
-            android:id="@+id/txtAuthorBook"
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            android:text="Tín" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp">
-
-
-        <TextView
-            android:paddingLeft="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:textColor="@color/colorSuperGrey"
-            android:text="Description: " />
-        <TextView
-            android:id="@+id/txtDescriptionBook"
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:singleLine="true"
-            android:onClick="clickToSeeDetailDescription"
-            android:textColor="@color/colorPrimary"
-            android:text="Đây là quyển  dsfdsf dsfsdafasfsfsdfsa sd sa fsách tín viết ra nhằm đi truyền đạo" />
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp">
-
-
+        android:layout_height="fill_parent">
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/txtViewBook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:drawableLeft="@drawable/ic_view"
-                android:layout_marginRight="100dp"
-                android:text="2011" />
-
-            <TextView
-                android:id="@+id/txtRateBook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:drawableLeft="@drawable/ic_star_24dp"
-                android:text="Đánh giá" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <android.support.v7.widget.CardView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="20dp"
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvDownloadBook"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:textColor="@color/colorMain"
-                android:textSize="25dp"
+                app:srcCompat="@drawable/bookhouse" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Details"
+                android:textSize="35dp"
                 android:textStyle="bold"
-                android:text="Get now for Free"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                android:paddingLeft="10dp"
+                android:textColor="@color/colorGreenForest"/>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp">
+
+
+                <TextView
+                    android:paddingLeft="15dp"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textColor="@color/colorSuperGrey"
+                    android:text="Book: " />
+                <TextView
+                    android:id="@+id/txtNameBook"
+                    android:paddingLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Example" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:paddingLeft="15dp"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+
+                    android:textColor="@color/colorSuperGrey"
+                    android:text="Author: " />
+                <TextView
+                    android:id="@+id/txtAuthorBook"
+                    android:paddingLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Tín" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp">
+
+
+                <TextView
+                    android:paddingLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textColor="@color/colorSuperGrey"
+                    android:text="Description: " />
+                <TextView
+                    android:id="@+id/txtDescriptionBook"
+                    android:paddingLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:onClick="clickToSeeDetailDescription"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Đây là quyển  dsfdsf dsfsdafasfsfsdfsa sd sa fsách tín viết ra nhằm đi truyền đạo" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/txtViewBook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:drawableLeft="@drawable/ic_view"
+                        android:layout_marginRight="100dp"
+                        android:text="2011" />
+
+                    <TextView
+                        android:id="@+id/txtRateBook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:drawableLeft="@drawable/ic_star_24dp"
+                        android:text="Đánh giá" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="20dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvDownloadBook"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:textColor="@color/colorMain"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:text="Get now for Free"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+
+
 </LinearLayout>
