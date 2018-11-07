@@ -98,25 +98,20 @@
         android:orientation="horizontal">
 
 
-        <ImageView
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_view"
-            android:text="Author: " />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
             <TextView
                 android:id="@+id/txtViewBook"
-                android:paddingLeft="15dp"
+                android:paddingLeft="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="28dp"
+                android:layout_marginLeft="10dp"
                 android:textStyle="bold"
+                android:drawableLeft="@drawable/ic_view"
                 android:text="2011" />
 
             <TextView
@@ -126,7 +121,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="28dp"
                 android:textStyle="bold"
-                android:gravity="right"
+                android:gravity="left"
+                android:layout_marginLeft="50dp"
+                android:drawableLeft="@drawable/ic_star_24dp"
                 android:text="Đánh giá" />
         </LinearLayout>
 

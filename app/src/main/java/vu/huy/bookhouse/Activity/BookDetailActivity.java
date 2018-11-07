@@ -91,7 +91,7 @@ public class BookDetailActivity extends AppCompatActivity {
         // TinLM rating and count number
         viewBook.setText(intent.getIntExtra("Count",0) + "");
         txtRateBook = findViewById(R.id.txtRateBook);
-        txtRateBook.setText(intent.getDoubleExtra("Rate",0) + "");
+        txtRateBook.setText(intent.getDoubleExtra("Rate",0) + "/5.0");
 
 
             //SQLite save
