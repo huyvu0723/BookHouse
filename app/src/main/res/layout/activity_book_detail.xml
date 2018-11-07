@@ -87,6 +87,7 @@
             android:textSize="28dp"
             android:textStyle="bold"
             android:singleLine="true"
+            android:onClick="clickToSeeDetailDescription"
             android:text="Đây là quyển  dsfdsf dsfsdafasfsfsdfsa sd sa fsách tín viết ra nhằm đi truyền đạo" />
     </LinearLayout>
 
@@ -111,6 +112,7 @@
                 android:textSize="28dp"
                 android:layout_marginLeft="10dp"
                 android:textStyle="bold"
+                android:gravity="center"
                 android:drawableLeft="@drawable/ic_view"
                 android:text="2011" />
 
@@ -121,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="28dp"
                 android:textStyle="bold"
-                android:gravity="left"
+                android:gravity="center"
                 android:layout_marginLeft="50dp"
                 android:drawableLeft="@drawable/ic_star_24dp"
                 android:text="Đánh giá" />

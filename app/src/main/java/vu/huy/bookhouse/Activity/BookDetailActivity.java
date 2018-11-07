@@ -54,7 +54,7 @@ public class BookDetailActivity extends AppCompatActivity {
     Intent intent;
     private ProgressDialog mProgressDialog;
     private TextView tvDownloadBook;
-
+    boolean openDescription = true;
     DatabaseHelper bookCaseManager;
 
     public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
@@ -216,6 +216,18 @@ public class BookDetailActivity extends AppCompatActivity {
                 return null;
         }
     }
+
+    public void clickToSeeDetailDescription(View view) {
+        if(openDescription){
+            descriptionBook.setSingleLine(false);
+            openDescription = false;
+        }else{
+            descriptionBook.setSingleLine(true);
+            openDescription = true;
+        }
+
+    }
+
     private class DownloadFile extends AsyncTask<String, String, String> {
 
         @Override
