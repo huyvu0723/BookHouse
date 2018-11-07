@@ -92,7 +92,7 @@ public class BookcaseRecyclerViewAdapter extends RecyclerView.Adapter<BookcaseRe
                     intent.putExtra("Description", book.getBookDescription());
 
                     intent.putExtra("Image", book.getBookImage());
-
+                    intent.putExtra("Mark", book.getBookMark());
                     intent.putExtra("Link", Environment.getExternalStorageDirectory() + "/BOOKHOUSE PDF/" + book.getName()+".pdf");
                     mContext.startActivity(intent);
                 } else {

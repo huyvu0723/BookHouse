@@ -90,7 +90,9 @@ public class BookcaseUtilities {
                 if(jsonObj.has(bookIdfield)) {
                     bookcase.setBookId(Integer.parseInt(jsonObj.getString(bookIdfield)));
                 }
-
+                if(jsonObj.has(bookMarkfield)) {
+                    bookcase.setBookMark(Integer.parseInt(jsonObj.getString(bookMarkfield)));
+                }
                 lstBook.add(bookcase);
             }
 

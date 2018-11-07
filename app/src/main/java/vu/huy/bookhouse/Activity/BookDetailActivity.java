@@ -34,6 +34,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.R;
@@ -42,6 +43,7 @@ import vu.huy.bookhouse.model.Bookcase;
 import vu.huy.bookhouse.model.DatabaseHelper;
 import vu.huy.bookhouse.model.User;
 import vu.huy.bookhouse.utilities.AccountUtilities;
+import vu.huy.bookhouse.utilities.BookUtilities;
 import vu.huy.bookhouse.utilities.BookcaseUtilities;
 
 public class BookDetailActivity extends AppCompatActivity {
@@ -56,7 +58,9 @@ public class BookDetailActivity extends AppCompatActivity {
     private TextView tvDownloadBook;
     boolean openDescription = true;
     DatabaseHelper bookCaseManager;
-
+    int id;
+    int mark = 0;
+    BookcaseUtilities utilities;
     public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class BookDetailActivity extends AppCompatActivity {
         ContextWrapper contextWrapper = new ContextWrapper(
                 getApplicationContext());
         directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
-
+        utilities = new BookcaseUtilities();
         nameBook = findViewById(R.id.txtNameBook);
         authorBook = findViewById(R.id.txtAuthorBook);
         descriptionBook = findViewById(R.id.txtDescriptionBook);
@@ -75,6 +79,15 @@ public class BookDetailActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("Name");
         String author = getIntent().getStringExtra("Author");
         String description = getIntent().getStringExtra("Description");
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstainServer.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
+        int accId = Integer.parseInt(sharedPreferences.getString(ConstainServer.ACCOUNTID, "0"));
+        id = intent.getIntExtra("Id",0);
+        List<Bookcase> books = utilities.getBookcaseByDId(accId);
+        for (int i = 0; i < books.size(); i++) {
+            if(books.get(0).getBookId() == id){
+                mark = books.get(0).getBookMark();
+            }
+        }
         //int view = 1000;
 
         nameBook.setText(name);
@@ -155,11 +168,6 @@ public class BookDetailActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-    }
-
-    public void clickToGetPDF(View view) {
 
 
     }
@@ -302,7 +310,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     nameBook.getText().toString(),
                     authorBook.getText().toString(),
                     descriptionBook.getText().toString(),
-                    0,
+                    mark,
                     Environment.getExternalStorageDirectory() + "/BOOKHOUSE PDF" +"/"+ nameLink,
                     "for future"
                     );

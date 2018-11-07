@@ -90,7 +90,7 @@ public class BookCaseDetailActivity extends AppCompatActivity {
         description.setText(extras.getString("Description"));
         link = extras.getString("Link");
         id = extras.getInt("Id");
-
+//        mark = extras.getInt("Mark");
     }
 
     public void clickToOpenPDF(View view) {
