@@ -15,45 +15,68 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/bookhouse" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Details"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:paddingLeft="10dp"
+        android:textColor="@color/colorGreenForest"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="20dp">
+
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
 
         <TextView
             android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorSuperGrey"
             android:text="Book: " />
         <TextView
             android:id="@+id/txtNameBookInCase"
             android:paddingLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
             android:text="Example" />
 
 
     </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="20dp">
+
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
 
         <TextView
             android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:textSize="25dp"
 
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorSuperGrey"
             android:text="Author: " />
 
         <TextView
@@ -61,22 +84,23 @@
             android:paddingLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
             android:text="Tín" />
     </LinearLayout>
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="20dp">
+
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
 
         <TextView
@@ -84,66 +108,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorSuperGrey"
             android:text="Description: " />
         <TextView
             android:id="@+id/txtDescriptionBookInCase"
             android:paddingLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:singleLine="true"
+            android:textColor="@color/colorPrimary"
             android:text="Đây là quyển sách tín viết ra nhằm đi truyền đạo" />
     </LinearLayout>
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
-    <android.support.v7.widget.CardView
-        android:layout_marginTop="10dp"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="20dp"
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+        <android.support.v7.widget.CardView
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="20dp"
+            >
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:textColor="@color/colorMain"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:text="Read"
-                android:onClick="clickToOpenPDF"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/colorDanger"
-        app:cardCornerRadius="20dp"
-        >
+                android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textColor="@color/colorMain"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="Read"
+                    android:onClick="clickToOpenPDF"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/colorDanger"
+            app:cardCornerRadius="20dp"
+            >
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:textColor="@color/colorGrey"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:text="DELETE"
-                android:onClick="clickToDeleteBook"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="DELETE"
+                    android:onClick="clickToDeleteBook"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
 </LinearLayout>

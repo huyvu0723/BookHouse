@@ -9,4 +9,6 @@
     <color name="colorFragment">#f1f1f1</color>
     <color name="colorGold">#FFD700</color>
     <color name="colorDanger">#d9534f</color>
+    <color name="colorGreenForest">#0B6623</color>
+    <color name="colorSuperGrey">#808080</color>
 </resources>
