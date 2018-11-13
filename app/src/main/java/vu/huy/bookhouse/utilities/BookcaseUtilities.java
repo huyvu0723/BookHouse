@@ -19,22 +19,22 @@ import static vu.huy.bookhouse.utilities.ReadStream.readStream;
 // TinLM 2/11/2018 Create
 public class BookcaseUtilities {
 
-    private static final String bookIdfield = "bookid";
-    private static final String accIdfield = "accid";
-    private static final String bookMarkfield = "bookmard";
-    private static final String autNamefield = "autname";
-    private static final String bookImagefield = "bookimage";
-    private static final String bookLinkfield = "booklink";
-    private static final String bookNamefield = "bookname";
+    private static final String bookIdfield = "bookId";
+    private static final String accIdfield = "accId";
+    private static final String bookMarkfield = "bookMark";
+    private static final String autNamefield = "autName";
+    private static final String bookImagefield = "bookImage";
+    private static final String bookLinkfield = "bookLink";
+    private static final String bookNamefield = "name";
     private static final String ratefield = "rate";
-    private static final String countfield = "countnum";
-    private static final String bookDescription = "bookdescription";
+    private static final String countfield = "countDownload";
+    private static final String bookDescription = "bookDescription";
 
     public boolean postBookcase(String accId, int bookId) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String url = ConstainServer.BaseURL + ConstainServer.BookcaseURL
-                + "PostBookCase?accId=" + accId + "&bookId=" + bookId;
+                + "postBookcase/" + accId + "/" + bookId;
         String respone = "";
         boolean result = false;
         try {
@@ -56,7 +56,7 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "GetBookcaseById?id=" + accId;
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "getBookCaseByUserId/" + accId;
 
         String respone = "";
 
@@ -106,7 +106,7 @@ public class BookcaseUtilities {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String url = ConstainServer.BaseURL + ConstainServer.BookcaseURL
-                + "checkBookcase?accId=" + accId + "&bookId=" + bookId;
+                + "checkBookcase/" + accId + "/" + bookId;
         String respone = "";
         boolean result = false;
         try {
@@ -126,7 +126,7 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "deleteBookInBookcase?accId=" + accId+"&bookId=" + bookId;
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "deleteBookInBookcase/" + accId+"/" + bookId;
 
         String respone = "";
 
@@ -144,7 +144,7 @@ public class BookcaseUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "RateBook?userID=" + userID +"&bookID=" + bookID +"&rate=" + rate;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "rateBook/" + userID +"/" + bookID +"/" + rate;
         String respone = "";
 
         try {
@@ -166,7 +166,7 @@ public class BookcaseUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "InsertRateBook?userID=" + userID +"&bookID=" + bookID +"&rate=" + rate;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "insertRateBook/" + userID +"/" + bookID +"/" + rate;
         String respone = "";
 
         try {
@@ -189,7 +189,7 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "GetBookcaseRate?id=" + bookId;
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "getBookcaseRate/" + bookId;
 
         String respone = "";
 
@@ -223,7 +223,7 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "UpdateBookMar?mark=" + mark +  "&accId="+ accId+"&bookId=" + bookId;
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "UpdateBookMar/" + mark +  "/"+ accId+"/" + bookId;
 
         String respone = "";
 
@@ -242,7 +242,7 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "GetMark?accId="+ accId+"&bookId=" + bookId;
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "GetMark/"+ accId+"/" + bookId;
 
         String respone = "";
         try {

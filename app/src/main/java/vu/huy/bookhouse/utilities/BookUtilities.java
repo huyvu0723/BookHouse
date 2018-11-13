@@ -16,22 +16,22 @@ import vu.huy.bookhouse.model.Category;
 
 public class BookUtilities {
 
-    private static final String bookIDfield = "bookid";
-    private static final String bookNamefield = "bookname";
-    private static final String bookauthorfield = "autname";
-    private static final String isVIPfield = "isvip";
-    private static final String datepublishfield = "datepublish";
-    private static final String bookLinkfield = "booklink";
+    private static final String bookIDfield = "bookId";
+    private static final String bookNamefield = "bookName";
+    private static final String bookauthorfield = "autName";
+    private static final String isVIPfield = "isVip";
+    private static final String datepublishfield = "datePublish";
+    private static final String bookLinkfield = "bookLink";
     private static final String publisherfield = "pubname";
-    private static final String bookIMGfield = "bookimage";
+    private static final String bookIMGfield = "bookImage";
     private static final String bookDescriptionfield = "bookdescription";
 
-    private static final String catIDfield = "catid";
-    private static final String catNamefield = "catname";
-    private static final String catParentfield = "catparent";
+    private static final String catIDfield = "catId";
+    private static final String catNamefield = "catName";
+    private static final String catParentfield = "catParent";
 
-    private static final String authorIDField = "autid";
-    private static final String authorNameField = "autname";
+    private static final String authorIDField = "autId";
+    private static final String authorNameField = "autName";
 
 
     public List<Book> getBookByDate(int filterID, String search){
@@ -41,15 +41,15 @@ public class BookUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
         if(search.length() > 0){
-            url = ConstainServer.BaseURL + ConstainServer.BookURL + "SearchBook?key=" + search;
+            url = ConstainServer.BaseURL + ConstainServer.BookURL + "SearchBook/" + search;
         }else{
             if(filterID > 0){
-                url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByCat?catID=" + filterID;
+                url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByCat/" + filterID;
             }else {
                 if(filterID < 0){
                     //Chuyển id âm thành dương
                     filterID = filterID - (filterID *2);
-                    url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBooksByAuthor?author=" + filterID;
+                    url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBooksByAuthor/" + filterID;
                 }else {
                     url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetBookByDate";
                 }
@@ -88,7 +88,12 @@ public class BookUtilities {
                     book.setBook_description(jsonObj.getString(bookDescriptionfield));
                 }
                 if(jsonObj.has(isVIPfield)){
-                    book.setVip(jsonObj.getBoolean(isVIPfield));
+                    if(jsonObj.getInt(isVIPfield) == 0){
+                        book.setVip(false);
+                    }else{
+                        book.setVip(true);
+                    }
+                    //book.setVip(jsonObj.getBoolean(isVIPfield));
                 }
 
                 lstBook.add(book);
@@ -103,7 +108,7 @@ public class BookUtilities {
         List<Category> lstCatParent =  null;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetAllCat";
+        String url = ConstainServer.BaseURL + ConstainServer.CategoryURL + "GetAllCat";
         String respone = "";
 
         try {
@@ -124,6 +129,9 @@ public class BookUtilities {
                     cat.setCatName(jsonObj.getString(catNamefield));
                 }
                 if(jsonObj.has(catParentfield)){
+                    if(jsonObj.getInt(catParentfield) == 0){
+                        lstCatParent.add(cat);
+                    }
                 }else{
                     lstCatParent.add(cat);
                 }
@@ -139,7 +147,7 @@ public class BookUtilities {
         List<Category> lstAuthor =  null;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetAllAuthor";
+        String url = ConstainServer.BaseURL + ConstainServer.AuthorURL + "GetAllAuthor";
         String respone = "";
 
         try {
@@ -172,7 +180,7 @@ public class BookUtilities {
         List<Category> lstCatChild =  null;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.BookURL + "GetAllCat";
+        String url = ConstainServer.BaseURL + ConstainServer.CategoryURL + "GetAllCat";
         String respone = "";
 
         try {
@@ -209,7 +217,7 @@ public class BookUtilities {
         Book lstBook = null;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.BookURL + "SearchBookByID?key=" + ID;
+        String url = ConstainServer.BaseURL + ConstainServer.BookURL + "SearchBookByID/" + ID;
         String respone = "";
 
         try {
@@ -242,7 +250,12 @@ public class BookUtilities {
                     lstBook.setBook_description(jsonObj.getString(bookDescriptionfield));
                 }
                 if(jsonObj.has(isVIPfield)){
-                    lstBook.setVip(jsonObj.getBoolean(isVIPfield));
+                    if(jsonObj.getInt(isVIPfield) == 0){
+                        lstBook.setVip(false);
+                    }else{
+                        lstBook.setVip(true);
+                    }
+                    //book.setVip(jsonObj.getBoolean(isVIPfield));
                 }
 
 

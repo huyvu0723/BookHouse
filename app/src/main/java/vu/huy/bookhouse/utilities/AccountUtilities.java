@@ -20,12 +20,12 @@ import static vu.huy.bookhouse.utilities.ReadStream.readStream;
 public class AccountUtilities {
 
 
-    private static final String userIDfield = "accid";
-    private static final String userNamefield = "accusername";
-    private static final String userPasswordfield = "accpassword";
-    private static final String userFullnamefield = "accfullname";
-    private static final String userVIPDatefield = "accdateendvip";
-    private static final String userBalancefield = "accwallet";
+    private static final String userIDfield = "accId";
+    private static final String userNamefield = "accUsername";
+    private static final String userPasswordfield = "accPassword";
+    private static final String userFullnamefield = "accFullname";
+    private static final String userVIPDatefield = "accDateEndVip";
+    private static final String userBalancefield = "accWallet";
 
     // TinLM 30/10/2018 Create checkLogin
     public boolean checkLogin(String username, String password){
@@ -33,7 +33,7 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "Login?username=" + username + "&password=" + password;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "Login/" + username + "/" + password;
         String respone = "";
 
         try {
@@ -54,7 +54,7 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "GetUser?username=" + username;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "GetUser/" + username;
         String respone = "";
 
         try {
@@ -86,7 +86,7 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "AddUser?username=" + username + "&password=" + password + "&fullname=" + fullname;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "AddUser/" + username + "/" + password + "/" + fullname;
         String respone = "";
 
         try {
@@ -106,7 +106,7 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "Charge?ID=" + accId + "&amount=" + amount;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "chargeBalance/" + accId + "/" + amount;
         String respone = "";
 
         try {
@@ -127,7 +127,7 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "BuyPack?userID=" + userID + "&packID=" + packID + "&day=" + day + "&amount=" + amount;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "BuyPack/" + userID + "/" + packID + "/" + day + "/" + amount;
         String respone = "";
 
         try {
