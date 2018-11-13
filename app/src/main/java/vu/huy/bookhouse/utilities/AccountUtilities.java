@@ -3,9 +3,10 @@ package vu.huy.bookhouse.utilities;
 import android.os.StrictMode;
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
+
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
 import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.model.User;
 
+import static vu.huy.bookhouse.utilities.ReadStream.getPostConnection;
 import static vu.huy.bookhouse.utilities.ReadStream.readStream;
 
 //TinLM 30/10/2018 Create utilities for Account
@@ -60,9 +62,9 @@ public class AccountUtilities {
         try {
             URL urll = new URL(url);
             respone = readStream(urll.openStream());
-
-            JSONArray arr = new JSONArray(respone);
-            JSONObject jsonObj = arr.getJSONObject(0);
+            JSONObject jsonObj = new JSONObject(respone);
+//            JSONArray arr = new JSONArray(respone);
+//            JSONObject jsonObj = arr.getJSONObject(0);
 
             String userID = jsonObj.getString(userIDfield);
             String name = jsonObj.getString(userNamefield);
@@ -91,7 +93,9 @@ public class AccountUtilities {
 
         try {
             URL urll = new URL(url);
-            respone = readStream(urll.openStream());
+            HttpURLConnection client = getPostConnection(urll);
+//            respone = readStream(urll.openStream());
+            respone = readStream(client.getInputStream());
             if(respone.contains("true")){
                 result = true;
             }
@@ -106,12 +110,14 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "chargeBalance/" + accId + "/" + amount;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "ChargeBalance/" + accId + "/" + amount;
+
         String respone = "";
 
         try {
             URL urll = new URL(url);
-            respone = readStream(urll.openStream());
+            HttpURLConnection client = getPostConnection(urll);
+            respone = readStream(client.getInputStream());
             if(respone.contains("true")){
                 result = true;
             }
@@ -127,12 +133,13 @@ public class AccountUtilities {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "BuyPack/" + userID + "/" + packID + "/" + day + "/" + amount;
+        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "BuyPack/" + userID + "/" + packID + "/" + day + "/" + (int)amount;
         String respone = "";
 
         try {
             URL urll = new URL(url);
-            respone = readStream(urll.openStream());
+            HttpURLConnection client = getPostConnection(urll);
+            respone = readStream(client.getInputStream());
             if(respone.contains("true")){
                 result = true;
             }

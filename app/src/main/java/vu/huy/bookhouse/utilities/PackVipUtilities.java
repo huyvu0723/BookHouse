@@ -16,15 +16,16 @@ import vu.huy.bookhouse.model.PackVIP;
 
 public class PackVipUtilities {
 
-    private static final String packIDfield = "pvid";
-    private static final String packDayfield = "bookdate";
-    private static final String packCostfield = "pvcost";
+    private static final String packIDfield = "pvId";
+    private static final String packDayfield = "bookDate";
+    private static final String packCostfield = "pvCost";
 
     public List<PackVIP> getAllPackVip(){
         List<PackVIP> lstPack =  null;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String url = ConstainServer.BaseURL + ConstainServer.UserURL + "GetPackVip";
+        //String url = ConstainServer.BaseURL + ConstainServer.UserURL + "GetPackVip";
+        String url = ConstainServer.BaseURL + ConstainServer.PackVipURL + "GetPackVip";
         String respone = "";
 
         try {

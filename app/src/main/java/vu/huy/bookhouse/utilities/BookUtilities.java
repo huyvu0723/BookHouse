@@ -20,11 +20,11 @@ public class BookUtilities {
     private static final String bookNamefield = "bookName";
     private static final String bookauthorfield = "autName";
     private static final String isVIPfield = "isVip";
-    private static final String datepublishfield = "datePublish";
+    //private static final String datepublishfield = "datePublish";
     private static final String bookLinkfield = "bookLink";
-    private static final String publisherfield = "pubname";
+    //private static final String publisherfield = "pubname";
     private static final String bookIMGfield = "bookImage";
-    private static final String bookDescriptionfield = "bookdescription";
+    private static final String bookDescriptionfield = "bookDescription";
 
     private static final String catIDfield = "catId";
     private static final String catNamefield = "catName";
@@ -75,16 +75,16 @@ public class BookUtilities {
                 if(jsonObj.has(bookNamefield)){
                     book.setBook_name(jsonObj.getString(bookNamefield));
                 }
-                if(jsonObj.has(bookauthorfield)){
+                if(!jsonObj.getString(bookauthorfield).contains("null")){
                     book.setBook_author(jsonObj.getString(bookauthorfield));
                 }
-                if(jsonObj.has(bookIMGfield)){
+                if(!jsonObj.getString(bookIMGfield).contains("null")){
                     book.setBook_img(jsonObj.getString(bookIMGfield));
                 }
-                if(jsonObj.has(bookLinkfield)){
+                if(!jsonObj.getString(bookLinkfield).contains("null")){
                     book.setBook_link(jsonObj.getString(bookLinkfield));
                 }
-                if(jsonObj.has(bookDescriptionfield)){
+                if(!jsonObj.getString(bookDescriptionfield).contains("null")){
                     book.setBook_description(jsonObj.getString(bookDescriptionfield));
                 }
                 if(jsonObj.has(isVIPfield)){

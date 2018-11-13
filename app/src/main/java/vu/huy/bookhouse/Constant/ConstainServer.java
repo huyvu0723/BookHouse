@@ -1,12 +1,13 @@
 package vu.huy.bookhouse.Constant;
 
 public class ConstainServer {
-    public static final String BaseURL = "http:/10.82.138.59:65411/api/"; //cmd ipconfig
+    public static final String BaseURL = "http:/192.168.100.6:65411/api/"; //cmd ipconfig
     public static final String UserURL = "Account/";
     public static final String AuthorURL = "Author/";
     public static final String CategoryURL = "Category/";
     public static final String BookURL = "Book/";
     public static final String BookcaseURL = "Bookcase/";
+    public static final String PackVipURL = "PackVip/";
 
     //TinLM 3/11/2018 sharepreference for login
 

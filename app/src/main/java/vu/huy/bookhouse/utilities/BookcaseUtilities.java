@@ -6,6 +6,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +15,14 @@ import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.model.Book;
 import vu.huy.bookhouse.model.Bookcase;
 
+import static vu.huy.bookhouse.utilities.ReadStream.getPostConnection;
 import static vu.huy.bookhouse.utilities.ReadStream.readStream;
 
 // TinLM 2/11/2018 Create
 public class BookcaseUtilities {
 
     private static final String bookIdfield = "bookId";
-    private static final String accIdfield = "accId";
+    //private static final String accIdfield = "accId";
     private static final String bookMarkfield = "bookMark";
     private static final String autNamefield = "autName";
     private static final String bookImagefield = "bookImage";
@@ -34,12 +36,14 @@ public class BookcaseUtilities {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String url = ConstainServer.BaseURL + ConstainServer.BookcaseURL
-                + "postBookcase/" + accId + "/" + bookId;
+                + "PostBookcase/" + accId + "/" + bookId;
         String respone = "";
         boolean result = false;
         try {
             URL urll = new URL(url);
-            respone = readStream(urll.openStream());
+            //respone = readStream(urll.openStream());
+            HttpURLConnection client = getPostConnection(urll);
+            respone = readStream(client.getInputStream());
             if(respone.contains("true")){
                 result = true;
             }
@@ -56,7 +60,7 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "getBookCaseByUserId/" + accId;
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "GetBookCaseByUserId/" + accId;
 
         String respone = "";
 
@@ -78,19 +82,19 @@ public class BookcaseUtilities {
                 if(jsonObj.has(bookNamefield)) {
                     bookcase.setName(jsonObj.getString(bookNamefield));
                 }
-                if(jsonObj.has(bookImagefield)) {
+                if(!jsonObj.getString(bookImagefield).contains("null")) {
                     bookcase.setBookImage(jsonObj.getString(bookImagefield));
                 }
-                if(jsonObj.has(bookLinkfield)) {
+                if(!jsonObj.getString(bookLinkfield).contains("null")) {
                     bookcase.setBookLink(jsonObj.getString(bookLinkfield));
                 }
-                if(jsonObj.has(bookDescription)) {
+                if(!jsonObj.getString(bookDescription).contains("null")) {
                     bookcase.setBookDescription(jsonObj.getString(bookDescription));
                 }
-                if(jsonObj.has(bookIdfield)) {
+                if(!jsonObj.getString(bookIdfield).contains("null")) {
                     bookcase.setBookId(Integer.parseInt(jsonObj.getString(bookIdfield)));
                 }
-                if(jsonObj.has(bookMarkfield)) {
+                if(!jsonObj.getString(bookMarkfield).contains("null")) {
                     bookcase.setBookMark(Integer.parseInt(jsonObj.getString(bookMarkfield)));
                 }
                 lstBook.add(bookcase);
@@ -106,7 +110,7 @@ public class BookcaseUtilities {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String url = ConstainServer.BaseURL + ConstainServer.BookcaseURL
-                + "checkBookcase/" + accId + "/" + bookId;
+                + "CheckBookcase/" + accId + "/" + bookId;
         String respone = "";
         boolean result = false;
         try {
@@ -126,7 +130,7 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "deleteBookInBookcase/" + accId+"/" + bookId;
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "DeleteBookInBookcase/" + accId+"/" + bookId;
 
         String respone = "";
 
@@ -149,7 +153,8 @@ public class BookcaseUtilities {
 
         try {
             URL urll = new URL(url);
-            respone = readStream(urll.openStream());
+            HttpURLConnection client = getPostConnection(urll);
+            respone = readStream(client.getInputStream());
             if(respone.contains("true")){
                 result = true;
             }
@@ -171,7 +176,9 @@ public class BookcaseUtilities {
 
         try {
             URL urll = new URL(url);
-            respone = readStream(urll.openStream());
+            //respone = readStream(urll.openStream());
+            HttpURLConnection client = getPostConnection(urll);
+            respone = readStream(client.getInputStream());
             if(respone.contains("true")){
                 result = true;
             }
@@ -189,7 +196,7 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "getBookcaseRate/" + bookId;
+        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "GetBookcaseRate/" + bookId;
 
         String respone = "";
 
@@ -197,11 +204,11 @@ public class BookcaseUtilities {
             URL urll = new URL(url);
             respone = ReadStream.readStream(urll.openStream());
 
-
-            JSONArray arr = new JSONArray(respone);
-
-
-                JSONObject jsonObj = arr.getJSONObject(0);
+            JSONObject jsonObj = new JSONObject(respone);
+//            JSONArray arr = new JSONArray(respone);
+//
+//
+//                JSONObject jsonObj = arr.getJSONObject(0);
 
             lstBook = new Bookcase();
                 if(jsonObj.has(ratefield)){
@@ -229,7 +236,8 @@ public class BookcaseUtilities {
 
         try {
             URL urll = new URL(url);
-            respone = ReadStream.readStream(urll.openStream());
+            HttpURLConnection client = getPostConnection(urll);
+            respone = ReadStream.readStream(client.getInputStream());
 
         }catch (Exception e){
             e.printStackTrace();
@@ -248,8 +256,9 @@ public class BookcaseUtilities {
         try {
             URL urll = new URL(url);
             respone = ReadStream.readStream(urll.openStream());
-            JSONArray arr = new JSONArray(respone);
-            JSONObject jsonObj = arr.getJSONObject(0);
+            JSONObject jsonObj = new JSONObject(respone);
+//            JSONArray arr = new JSONArray(respone);
+//            JSONObject jsonObj = arr.getJSONObject(0);
             if(jsonObj.has("bookmark")) {
                 mark = jsonObj.getInt("bookmark");
             }
