@@ -24,6 +24,29 @@ public class ReadStream {
         return client;
     }
 
+    public static HttpURLConnection getPutConnection(URL urll) {
+        HttpURLConnection client = null;
+        try {
+            client = (HttpURLConnection) urll.openConnection();
+            client.setRequestMethod("PUT");
+            client.setDoOutput(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return client;
+    }
+    public static HttpURLConnection getDelConnection(URL urll) {
+        HttpURLConnection client = null;
+        try {
+            client = (HttpURLConnection) urll.openConnection();
+            client.setRequestMethod("DELETE");
+            client.setDoOutput(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return client;
+    }
+
     // read Stream
     public static String readStream(InputStream in) {
         BufferedReader reader = null;

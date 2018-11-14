@@ -1,7 +1,7 @@
 package vu.huy.bookhouse.Constant;
 
 public class ConstainServer {
-    public static final String BaseURL = "http:/192.168.100.6:65411/api/"; //cmd ipconfig
+    public static final String BaseURL = "http:/172.20.10.4:65411/api/"; //cmd ipconfig
     public static final String UserURL = "Account/";
     public static final String AuthorURL = "Author/";
     public static final String CategoryURL = "Category/";

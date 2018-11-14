@@ -15,7 +15,9 @@ import vu.huy.bookhouse.Constant.ConstainServer;
 import vu.huy.bookhouse.model.Book;
 import vu.huy.bookhouse.model.Bookcase;
 
+import static vu.huy.bookhouse.utilities.ReadStream.getDelConnection;
 import static vu.huy.bookhouse.utilities.ReadStream.getPostConnection;
+import static vu.huy.bookhouse.utilities.ReadStream.getPutConnection;
 import static vu.huy.bookhouse.utilities.ReadStream.readStream;
 
 // TinLM 2/11/2018 Create
@@ -136,7 +138,8 @@ public class BookcaseUtilities {
 
         try {
             URL urll = new URL(url);
-            respone = ReadStream.readStream(urll.openStream());
+            HttpURLConnection client = getDelConnection(urll);
+            respone = readStream(client.getInputStream());
 
         }catch (Exception e){
             e.printStackTrace();
@@ -153,7 +156,7 @@ public class BookcaseUtilities {
 
         try {
             URL urll = new URL(url);
-            HttpURLConnection client = getPostConnection(urll);
+            HttpURLConnection client = getPutConnection(urll);
             respone = readStream(client.getInputStream());
             if(respone.contains("true")){
                 result = true;
@@ -230,13 +233,13 @@ public class BookcaseUtilities {
         StrictMode.setThreadPolicy(policy);
         String url;
 
-        url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "UpdateBookMar/" + mark +  "/"+ accId+"/" + bookId;
+            url = ConstainServer.BaseURL + ConstainServer.BookcaseURL + "UpdateBookMar/" + mark +  "/"+ accId+"/" + bookId;
 
         String respone = "";
 
         try {
             URL urll = new URL(url);
-            HttpURLConnection client = getPostConnection(urll);
+            HttpURLConnection client = getPutConnection(urll);
             respone = ReadStream.readStream(client.getInputStream());
 
         }catch (Exception e){
@@ -259,8 +262,8 @@ public class BookcaseUtilities {
             JSONObject jsonObj = new JSONObject(respone);
 //            JSONArray arr = new JSONArray(respone);
 //            JSONObject jsonObj = arr.getJSONObject(0);
-            if(jsonObj.has("bookmark")) {
-                mark = jsonObj.getInt("bookmark");
+            if(jsonObj.has(bookMarkfield)) {
+                mark = jsonObj.getInt(bookMarkfield);
             }
 
         }catch (Exception e){
